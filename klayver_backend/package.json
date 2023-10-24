@@ -15,6 +15,7 @@
   "dependencies": {
     "@klaytn/contracts": "^1.0.6",
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
     "dotenv": "^16.3.1"
   }
 }
