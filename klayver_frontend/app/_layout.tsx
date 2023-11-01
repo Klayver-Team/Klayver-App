@@ -49,11 +49,11 @@ function RootLayoutNav() {
   return (
       <Stack screenOptions={{
         contentStyle: {
-          backgroundColor: "white"
-        }
+          backgroundColor: "#F4F4F4"
+        },
+        headerShown: false,
       }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
   );
 }
