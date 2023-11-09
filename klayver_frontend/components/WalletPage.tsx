@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import axios from "axios";
+import { router } from "expo-router";
 
 interface DataItem {
   id: string;
@@ -16,7 +17,7 @@ interface DataItem {
   symbol: string;
 }
 
-const ProfilePage = () => {
+const ProfilePage = ({navigation}: any) => {
   const [balance, setBalance] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   // Then use it in your state declaration
@@ -86,10 +87,12 @@ const ProfilePage = () => {
     {
       icon: "arrow-up",
       name: "Send",
+      action: () => router.push("/sendPage")
     },
     {
       icon: "arrow-down",
       name: "Receive",
+      action: () => router.push("/receivePage")
     },
     {
       icon: "hand-holding-usd",
@@ -122,6 +125,7 @@ const ProfilePage = () => {
       {/** Transaction section */}
       <View className="min-w-full flex-row items-center justify-evenly mt-[68px]">
         {transact.map((item, index) => (
+          <Pressable onPress={item.action}>
           <View key={index} className="items-center">
             <TouchableOpacity
               key={index}
@@ -136,6 +140,7 @@ const ProfilePage = () => {
             </TouchableOpacity>
             <Text className="text-[12px] font-normal">{item.name}</Text>
           </View>
+          </Pressable>
         ))}
       </View>
       {/** Transaction section end */}
