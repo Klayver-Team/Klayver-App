@@ -16,6 +16,7 @@ const ReceiveMoney = () => {
         amount: "10700",
         value: "$50,000",
         rate: "$1",
+        id:1,
         currency: "USDT",
         otherText: "polygon"
         },
@@ -23,6 +24,7 @@ const ReceiveMoney = () => {
             icon: <EthIcon height={50} width={40}/>,
             text: "Ethereum",
             amount: "12",
+            id: 2,
             value: "$3,500",
             rate: "$1",
             currency: "ETH",
@@ -39,14 +41,13 @@ const ReceiveMoney = () => {
         </Text>
         {
          tokenList.map((item) => (
-        <Pressable
+        <Pressable key={item.id}
         className="bg-[#fff] px-3 pt-6 mb-3 flex-row rounded-[20px]">
         <Link
         href={{
             pathname: "/receiveDetails",
             params: {
                 currency: item.currency,
-                icon: item.icon,
                 otherText: item.otherText,
             }
         }}

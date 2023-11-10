@@ -87,11 +87,13 @@ const ProfilePage = ({navigation}: any) => {
     {
       icon: "arrow-up",
       name: "Send",
+      id:1,
       action: () => router.push("/sendPage")
     },
     {
       icon: "arrow-down",
       name: "Receive",
+      id:2,
       action: () => router.push("/receivePage")
     },
     {
@@ -124,11 +126,11 @@ const ProfilePage = ({navigation}: any) => {
 
       {/** Transaction section */}
       <View className="min-w-full flex-row items-center justify-evenly mt-[68px]">
-        {transact.map((item, index) => (
-          <Pressable onPress={item.action}>
-          <View key={index} className="items-center">
+        {transact.map((item) => (
+          <Pressable onPress={item.action} key={item.id}>
+          <View key={item.id} className="items-center">
             <TouchableOpacity
-              key={index}
+              key={item.id}
               className="w-[46px] h-[46px] rounded-full bg-Orange flex-row items-center justify-center px-[9px]"
             >
               <FontAwesome5
