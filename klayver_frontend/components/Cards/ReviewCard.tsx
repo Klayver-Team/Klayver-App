@@ -6,7 +6,7 @@ import { FontAwesome } from "@expo/vector-icons";
 const ReviewCard = () => {
   const [rating, setRating] = useState([1, 2, 3, 4, 5]);
   return (
-    <View className="w-full bg-[#f4f4f4] h-[132px] space-y-[16px] py-6 px-9 rounded-[20px]">
+    <View className="w-full bg-[#fafafa] h-[152px] space-y-[16px] p-5 rounded-[20px]">
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-start space-x-3">
           <Image
