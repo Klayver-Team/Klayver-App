@@ -4,7 +4,7 @@ import { FontAwesome } from '@expo/vector-icons'
 
 const PostCard = ({item}: any) => {
   return (
-    <View className="h-[462px] flex-1 mb-[15px] w-[350px] bg-white overflow-y-scroll mx-[10px] rounded-[10px] py-[20px] px-[10px]">
+    <View className="h-[462px] flex-1 mb-[15px] w-[350px] bg-[#f4f4f4] overflow-y-scroll mx-[10px] rounded-[10px] py-[20px] px-[10px]">
     <View className="flex-row items-start space-x-[12px]">
       <Image
         source={{

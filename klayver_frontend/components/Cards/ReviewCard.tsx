@@ -1,12 +1,12 @@
 import { View, Text, Image } from "react-native";
 import React, { useState } from "react";
-import { logo } from "../assets/images";
+import { logo } from "../../assets/images";
 import { FontAwesome } from "@expo/vector-icons";
 
 const ReviewCard = () => {
   const [rating, setRating] = useState([1, 2, 3, 4, 5]);
   return (
-    <View className="w-full bg-[#fafafa] h-[132px] space-y-[16px] p-2 rounded-[20px]">
+    <View className="w-full bg-[#f4f4f4] h-[132px] space-y-[16px] py-6 px-9 rounded-[20px]">
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-start space-x-3">
           <Image
