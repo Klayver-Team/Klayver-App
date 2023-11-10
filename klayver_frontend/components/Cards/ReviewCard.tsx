@@ -1,6 +1,6 @@
 import { View, Text, Image } from "react-native";
 import React, { useState } from "react";
-import { logo } from "../assets/images";
+import { logo } from "../../assets/images";
 import { FontAwesome } from "@expo/vector-icons";
 
 const ReviewCard = () => {

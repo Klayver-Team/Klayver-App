@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { StyleSheet, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import ProfilePage from "../../components/ProfilePage";
-import WalletPage from "../../components/WalletPage";
-import PostPage from "../../components/PostPage";
+import ProfilePage from "../../components/profileComponents/ProfilePage";
+import WalletPage from "../../components/profileComponents/WalletPage";
+import PostPage from "../../components/profileComponents/PostPage";
 import { ScrollView } from "react-native-gesture-handler";
 
 export default function TabTwoScreen() {
@@ -14,12 +14,12 @@ export default function TabTwoScreen() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <View style={styles.container}>
         <Pressable
           className={`${
             activeButton === 0
-              ? "bg-[#f4f4f4] text-black font-bold rounded-[30px]"
+              ? "bg-[#fff] text-black font-bold rounded-[30px]"
               : "text-[#828282] font-normal"
           } px-[30px] py-[12px]`}
           onPress={() => handlePress(0)}
@@ -29,7 +29,7 @@ export default function TabTwoScreen() {
         <Pressable
           className={`${
             activeButton === 1
-              ? "bg-[#f4f4f4] text-Black font-bold rounded-[30px]"
+              ? "bg-[#fff] text-Black font-bold rounded-[30px]"
               : "text-[#828282] font-normal"
           } px-[30px] py-[12px]`}
           onPress={() => handlePress(1)}
@@ -39,7 +39,7 @@ export default function TabTwoScreen() {
         <Pressable
           className={`${
             activeButton === 2
-              ? "bg-[#f4f4f4] text-Black font-bold rounded-[30px]"
+              ? "bg-[#fff] text-Black font-bold rounded-[30px]"
               : "text-[#828282] font-normal"
           } px-[30px] py-[12px]`}
           onPress={() => handlePress(2)}
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#f4f4f4",
     height: 46,
     marginHorizontal: 46,
     borderRadius: 23,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   activeButton: {
-    backgroundColor: "#f4f4f4",
+    backgroundColor: "#fff",
     borderRadius: 23,
   },
 });

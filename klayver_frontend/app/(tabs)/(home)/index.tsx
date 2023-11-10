@@ -6,7 +6,7 @@ import Header from "../../../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { logo } from "../../../assets/images";
 import { router, useRouter } from "expo-router";
-import PostCard from "../../../components/PostCard";
+import PostCard from "../../../components/Cards/PostCard";
 
 const Home = () => {
   const [allPost, setAllPost] = useState([
@@ -17,6 +17,7 @@ const Home = () => {
     <SafeAreaView
       style={{
         flex: 1,
+        backgroundColor: "#fff",
       }}
     >
       {/** Heaader */}

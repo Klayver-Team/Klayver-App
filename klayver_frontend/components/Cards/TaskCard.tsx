@@ -5,7 +5,7 @@ import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 const TaskCard = () => {
   return (
-    <View className="pt-[11px] pb-[20px] pl-[21px] pr-[19px] bg-[#fafafa] space-y-[10px] w-[100%] rounded-[20px]">
+    <View className="pt-[11px] pb-[20px] pl-[21px] pr-[19px] bg-[#f4f4f4] space-y-[10px] w-[100%] rounded-[20px]">
       <View className="flex-row items-center justify-between ">
         <Text className="text-[16px] text-[#828282] font-normal">
           Description

@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const PostPage = () => {
+const OrderSummary = () => {
   return (
     <View>
-      <Text>PostPage</Text>
+      <Text>OrderSummary</Text>
     </View>
   )
 }
 
-export default PostPage
+export default OrderSummary

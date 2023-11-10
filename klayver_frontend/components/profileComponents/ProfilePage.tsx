@@ -1,9 +1,11 @@
 import { View, Text, Image, Pressable } from "react-native";
 import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import TaskCard from "./TaskCard";
-import WorkCard from "./WorkCard";
-import ReviewCard from "./ReviewCard";
+import TaskCard from "../Cards/TaskCard";
+import WorkCard from "../Cards/WorkCard";
+import ReviewCard from "../Cards/ReviewCard";
+import { router } from "expo-router";
+import TalentCard from "../Cards/TalentCard";
 
 const WalletPage = () => {
   const style = {};
@@ -27,7 +29,10 @@ const WalletPage = () => {
               </Text>
             </View>
           </View>
-          <Pressable className="py-[5px] px-[10px] border rounded-[20px]">
+          <Pressable
+            onPress={() => router.push("/(tabs)/(home)/workForm")}
+            className="py-[5px] px-[10px] border rounded-[20px]"
+          >
             <Text className="text-Orange text-[14px] font-medium">
               Edit profile
             </Text>
@@ -39,6 +44,7 @@ const WalletPage = () => {
       </View>
 
       {/** Talent Card section */}
+      <TalentCard />
 
       {/** Task section */}
       <View className="mr-[20px] ml-[20px] mt-[22px]">
@@ -95,7 +101,7 @@ const WalletPage = () => {
             width: "95%",
           }}
         >
-         <ReviewCard />
+          <ReviewCard />
         </ScrollView>
       </View>
     </View>
