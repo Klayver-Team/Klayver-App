@@ -22,6 +22,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         // tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarHideOnKeyboard: true,
         headerShown: false,
       }}
     >
@@ -42,6 +43,20 @@ export default function TabLayout() {
               )}
             </Pressable>
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="finance"
+        options={{
+          tabBarLabel: "Finanace",
+          tabBarIcon: ({ color }) => <TabBarIcon name="money" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="notifications"
+        options={{
+          tabBarLabel: "Notification",
+          tabBarIcon: ({ color }) => <TabBarIcon name="bell" color={color} />,
         }}
       />
       <Tabs.Screen
