@@ -16,6 +16,7 @@ const SendMoney = () => {
         amount: "10700",
         value: "$50,000",
         rate: "$1",
+        id: 1,
         currency: "USDT",
         otherText: "polygon"
         },
@@ -25,6 +26,7 @@ const SendMoney = () => {
             amount: "12",
             value: "$3,500",
             rate: "$1",
+            id: 2, 
             currency: "ETH",
             otherText: ""
         },
@@ -39,14 +41,13 @@ const SendMoney = () => {
         </Text>
         {
          tokenList.map((item) => (
-        <Pressable
+        <Pressable key={item.id}
         className="bg-[#fff] px-3 pt-6 mb-3 flex-row rounded-[20px]">
         <Link
         href={{
             pathname: "/senderDetails",
             params: {
                 currency: item.currency,
-                icon: item.icon,
                 send: "send",
                 otherText: item.otherText,
             }

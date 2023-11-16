@@ -17,7 +17,7 @@ interface DataItem {
   symbol: string;
 }
 
-const ProfilePage = ({navigation}: any) => {
+const ProfilePage = ({ navigation }: any) => {
   const [balance, setBalance] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   // Then use it in your state declaration
@@ -87,12 +87,14 @@ const ProfilePage = ({navigation}: any) => {
     {
       icon: "arrow-up",
       name: "Send",
-      action: () => router.push("/sendPage")
+      id: 1,
+      action: () => router.push("/sendPage"),
     },
     {
       icon: "arrow-down",
       name: "Receive",
-      action: () => router.push("/receiveDetails")
+      id: 2,
+      action: () => router.push("/receivePage"),
     },
     {
       icon: "hand-holding-usd",
@@ -124,22 +126,22 @@ const ProfilePage = ({navigation}: any) => {
 
       {/** Transaction section */}
       <View className="min-w-full flex-row items-center justify-evenly mt-[68px]">
-        {transact.map((item, index) => (
-          <Pressable key={index}  onPress={item.action}>
-          <View className="items-center">
-            <TouchableOpacity
-              key={index}
-              className="w-[46px] h-[46px] rounded-full bg-Orange flex-row items-center justify-center px-[9px]"
-            >
-              <FontAwesome5
-                name={item.icon}
-                size={20}
-                color="#fff"
-                className="mt-[8px] ml-[8px]"
-              />
-            </TouchableOpacity>
-            <Text className="text-[12px] font-normal">{item.name}</Text>
-          </View>
+        {transact.map((item) => (
+          <Pressable onPress={item.action} key={item.id}>
+            <View key={item.id} className="items-center">
+              <TouchableOpacity
+                key={item.id}
+                className="w-[46px] h-[46px] rounded-full bg-Orange flex-row items-center justify-center px-[9px]"
+              >
+                <FontAwesome5
+                  name={item.icon}
+                  size={20}
+                  color="#fff"
+                  className="mt-[8px] ml-[8px]"
+                />
+              </TouchableOpacity>
+              <Text className="text-[12px] font-normal">{item.name}</Text>
+            </View>
           </Pressable>
         ))}
       </View>

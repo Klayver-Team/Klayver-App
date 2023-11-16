@@ -1,8 +1,11 @@
 import React from "react";
 import { Linking, Pressable, Text, TouchableOpacity, View } from "react-native";
+import SvgUri from "react-native-svg-uri";
 import UsdtIcon from "../assets/icons/usdt.svg";
 import EthIcon from "../assets/icons/eth.svg";
+import { Image } from "react-native-svg";
 import { Link, router } from "expo-router";
+import { useLinkProps, useNavigation } from "@react-navigation/native";
 
 const ReceiveMoney = () => {
   const tokenList = [
@@ -12,6 +15,7 @@ const ReceiveMoney = () => {
       amount: "10700",
       value: "$50,000",
       rate: "$1",
+      id: 1,
       currency: "USDT",
       otherText: "polygon",
     },
@@ -19,6 +23,7 @@ const ReceiveMoney = () => {
       icon: <EthIcon height={50} width={40} />,
       text: "Ethereum",
       amount: "12",
+      id: 2,
       value: "$3,500",
       rate: "$1",
       currency: "ETH",
@@ -30,13 +35,15 @@ const ReceiveMoney = () => {
     <View className="my-11 mx-7 rounded flex ">
       <Text className="text-3xl mt-10 font-semibold py-10">Select Token</Text>
       {tokenList.map((item) => (
-        <Pressable className="bg-[#fff] px-3 pt-6 mb-3 flex-row rounded-[20px]">
+        <Pressable
+          key={item.id}
+          className="bg-[#fff] px-3 pt-6 mb-3 flex-row rounded-[20px]"
+        >
           <Link
             href={{
               pathname: "/receiveDetails",
               params: {
                 currency: item.currency,
-                icon: item.icon,
                 otherText: item.otherText,
               },
             }}
