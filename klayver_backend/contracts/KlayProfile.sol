@@ -11,6 +11,7 @@ import { IKIP7 } from '@klaytn/contracts/KIP/interfaces/IKIP7.sol';
 /// @dev This contract is as follows: create a profile, edit a profile, delete a profile, deploy a profile token, edit a profile token, delete a profile token, and more
 
 contract KlayverProfile {
+
     struct Profile {
         string name;
         string profilePic;
@@ -22,10 +23,10 @@ contract KlayverProfile {
         string[] skills;
         string[] reviews;
     }
-    
+
     Profile[] public profiles;
 
-    mapping(address => Profile) public profileByAddress;    
+    mapping(address => Profile) public profileByAddress;
     mapping(address => bool) public profileExists;
 
     function createAProfile(
@@ -42,7 +43,9 @@ contract KlayverProfile {
 
         // Deploy token contract and mint some initial tokens
         KlayverToken newToken = new KlayverToken(_tokenName, _tokenSymbol);
-       uint256 balance = newToken.retrieveTokenBalance(msg.sender);
+        uint256 balance = newToken.retrieveTokenBalance(msg.sender);
+        //newToken.approve(address(this), balance);
+        newToken.transferFrom(msg.sender, address(this), balance);
 
         Profile storage newProfile = profileByAddress[msg.sender];
         newProfile.name = _name;
@@ -60,10 +63,10 @@ contract KlayverProfile {
     }
 
     function retrieveUserDetail(address _owner) external view returns(Profile memory) {
-       return profileByAddress[_owner];
+        return profileByAddress[_owner];
     }
 
-    function retriveUserTokenAddress(address _owner) external view returns(address) {
+    function retrieveUserTokenAddress(address _owner) external view returns(address) {
         return profileByAddress[_owner].profileTokenAddress;
     }
 
