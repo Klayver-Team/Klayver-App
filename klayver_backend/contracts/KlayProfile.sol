@@ -3,7 +3,7 @@
 pragma solidity ^0.8.9;
 
 import { KlayverToken } from "./KlayverToken.sol";
-import { IKIP7 } from '@klaytn/contracts/interfaces/IKIP7.sol';
+import { IKIP7 } from '@klaytn/contracts/KIP/interfaces/IKIP7.sol';
 
 /// @title Klayver Profile
 /// @author Joseph

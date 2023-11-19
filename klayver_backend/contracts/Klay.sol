@@ -1,10 +1,10 @@
 // SPDX-Licence-Identifier: MIT
 pragma solidity ^0.8.12;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@klaytn/contracts/KIP/token/KIP7/KIP7.sol";
+import "@klaytn/contracts/access/Ownable.sol";
 
-contract Klay is ERC20, Ownable {
+contract Klay is KIP7, Ownable {
 
 
     // address of the platform treasury
@@ -13,7 +13,7 @@ contract Klay is ERC20, Ownable {
     // percentage that goes to the treasury
     uint256 public platformFeePercentage;
 
-    constructor() ERC20("Klay", "KLA") {
+    constructor() KIP7("Klay", "KLA") {
         platformTreasury = msg.sender;
 
         platformFeePercentage = 5;
@@ -76,6 +76,4 @@ contract Klay is ERC20, Ownable {
         require(newPlatformFeePercentage <= 100, "Platform fee percentage cannot exceed 100%");
         platformFeePercentage = newPlatformFeePercentage;
     }
-
-
 }

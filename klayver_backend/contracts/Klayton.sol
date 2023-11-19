@@ -1,17 +1,17 @@
 // SPX-License-Identifier: MIT
 pragma solidity ^0.8.12;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@klaytn/contracts/KIP/token/KIP7/KIP7.sol";
+import "@klaytn/contracts/access/Ownable.sol";
 
-contract Klayton is ERC20, Ownable {
+contract Klayton is KIP7, Ownable {
     mapping(address => uint256) public disputedFunds;
     address public admin;
 
     event FundsWithheld(address account, uint256 amount);
     event FundsReleased(address account, uint256 amount);
 
-    constructor() ERC20("Klayton", "KLY") {
+    constructor() KIP7("Klayton", "KLY") {
         _mint(msg.sender, 200_000_000 * 10 ** uint256(decimals()));
         admin = msg.sender;      
     }
