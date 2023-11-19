@@ -74,7 +74,7 @@ contract KlayverProfile {
         return profiles;
     }
 
-    function purchaseAToken(address _tokenAddress, address _profileAddress, uint256 _amountOfMonth) external {
+    function purchaseAToken(address _tokenAddress, address _profileAddress /*uint256 _amountOfMonth*/) payable public {
         IKIP7 token = IKIP7(_tokenAddress);
         token.approve(msg.sender, msg.value);
         token.transferFrom(msg.sender, _profileAddress, msg.value);
