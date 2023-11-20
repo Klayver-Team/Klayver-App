@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.17;
 
 import "@klaytn/contracts/KIP/token/KIP7/KIP7.sol";
 import "@klaytn/contracts/KIP/token/KIP7/extensions/KIP7Burnable.sol";

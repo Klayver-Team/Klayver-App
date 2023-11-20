@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.17;
 
 import { KlayverToken } from "./KlayverToken.sol";
 import { IKIP7 } from '@klaytn/contracts/KIP/interfaces/IKIP7.sol';
@@ -11,7 +11,6 @@ import { IKIP7 } from '@klaytn/contracts/KIP/interfaces/IKIP7.sol';
 /// @dev This contract is as follows: create a profile, edit a profile, delete a profile, deploy a profile token, edit a profile token, delete a profile token, and more
 
 contract KlayverProfile {
-
     struct Profile {
         string name;
         string profilePic;
