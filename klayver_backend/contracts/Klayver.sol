@@ -4,7 +4,7 @@ pragma solidity ^0.8.12;
 import "@klaytn/contracts/KIP/token/KIP7/KIP7.sol";
 import "@klaytn/contracts/access/Ownable.sol";
 
-contract Klayton is KIP7, Ownable {
+contract Klayver is KIP7, Ownable {
     mapping(address => uint256) public disputedFunds;
     address public admin;
     address public platformTreasury;
@@ -13,7 +13,7 @@ contract Klayton is KIP7, Ownable {
     event FundsWithheld(address account, uint256 amount);
     event FundsReleased(address account, uint256 amount);
 
-    constructor() KIP7("Klayton", "KLY") {
+    constructor() KIP7("Klayver", "KLV") {
         _mint(msg.sender, 200_000_000 * 10 ** uint256(decimals()));
         admin = msg.sender;
         platformTreasury = msg.sender;
@@ -66,6 +66,18 @@ contract Klayton is KIP7, Ownable {
     function mint(address to, uint256 amount) public onlyOwner {
         require(amount > 0, "Amount to mint must be positive");
         _mint(to, amount);
+    }
+
+    function getUserBalance(address account) public view returns (uint256) {
+        return balanceOf(account);
+    }
+
+    function getPlatformTreasuryBalance() public view returns (uint256) {
+        return balanceOf(platformTreasury);
+    }
+
+    function getTotalTokenSupply() public view returns (uint256) {
+        return totalSupply();
     }
 
     function burn(address from, uint256 amount) public onlyOwner {
