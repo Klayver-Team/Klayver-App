@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button, TouchableOpacityComponent } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+} from "react-native";
 import { useRoute } from "@react-navigation/native";
 import * as Clipboard from "expo-clipboard";
-import { Link, router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 import UsdtIcon from "../assets/icons/usdt.svg";
 import EthIcon from "../assets/icons/eth.svg";
 import CancelIcon from "../assets/icons/cancel.svg";
@@ -25,8 +29,17 @@ const ReceiveDetails = () => {
     }, 3000);
     return () => clearTimeout(timeout);
   }, [state]);
+
+  const navigation = useNavigation();
+
+  const goBack = () => {
+    navigation.goBack();
+  };
   return (
     <View className="my-11 mx-7 rounded flex ">
+      <Pressable onPress={goBack}>
+        <Text>Back</Text>
+      </Pressable>
       <Text className="text-3xl mt-10 py-10 text-center font-semibold">
         Receive
         <View className="py-9 px-2">

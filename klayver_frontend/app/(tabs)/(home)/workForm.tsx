@@ -7,7 +7,10 @@ import PurcahseToken from "../../../components/WorkForm/PurcahseToken";
 import { FontAwesome } from "@expo/vector-icons";
 import RangeComponents from "../../../components/RangeComponents";
 import { router } from "expo-router";
-import { ScrollView, TouchableWithoutFeedback } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 
 const workForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -35,39 +38,39 @@ const workForm = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <SafeAreaView>
-      <View className="flex-row items-center space-x-[102px] px-5 mt-[16px]">
-        <FontAwesome
-          onPress={() =>
-            router.canGoBack() ? router.back() : router.push("/(tabs)/(home)")
-          }
-          name="arrow-left"
-          size={24}
+      <SafeAreaView>
+        <View className="flex-row items-center space-x-[102px] px-5 mt-[16px]">
+          <FontAwesome
+            onPress={() =>
+              router.canGoBack() ? router.back() : router.push("/(tabs)/(home)")
+            }
+            name="arrow-left"
+            size={24}
+          />
+          <Text className="text-[20px] font-medium">{currentStepTitle}</Text>
+        </View>
+
+        {/** steps display */}
+        <RangeComponents
+          currentStep={currentStep}
+          setCurrentStep={setCurrentStep}
+          step={step}
         />
-        <Text className="text-[20px] font-medium">{currentStepTitle}</Text>
-      </View>
+        <ScrollView showsHorizontalScrollIndicator={false}>
+          {displayStep()}
+        </ScrollView>
 
-      {/** steps display */}
-      <RangeComponents
-        currentStep={currentStep}
-        setCurrentStep={setCurrentStep}
-        step={step}
-      />
-      <ScrollView showsHorizontalScrollIndicator={false}>
-        {displayStep()}
-      </ScrollView>
-
-      <Pressable
-        onPress={handleNext}
-        className="justify-center items-center px-5 py-3.5 w-[80%] mx-auto mt-[86px] rounded-3xl bg-amber-500"
-      >
-        <Text className="text-white text-base font-medium leading-5 whitespace-nowrap">
-          {(currentStep === 0 && "Continue") ||
-            (currentStep === 1 && "Buy talent token ") ||
-            (currentStep === 2 && "Buy")}
-        </Text>
-      </Pressable>
-    </SafeAreaView>
+        <Pressable
+          onPress={handleNext}
+          className="justify-center items-center px-5 py-3.5 w-[80%] mx-auto mt-[86px] rounded-3xl bg-amber-500"
+        >
+          <Text className="text-white text-base font-medium leading-5 whitespace-nowrap">
+            {(currentStep === 0 && "Continue") ||
+              (currentStep === 1 && "Buy talent token ") ||
+              (currentStep === 2 && "Buy")}
+          </Text>
+        </Pressable>
+      </SafeAreaView>
     </TouchableWithoutFeedback>
   );
 };

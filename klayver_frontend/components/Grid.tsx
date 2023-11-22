@@ -17,9 +17,15 @@ export const GridTable: React.FC<GridProps> = ({ data }) => {
             {item.title}
           </Text>
 
-          <Text className="text-[18px] font-semilight">
-            {truncateTextWithEllipsis(item.value, 20)}
-          </Text>
+         
+          {item.value ?
+            <Text className="text-[18px] font-semilight">
+              {truncateTextWithEllipsis(item.value, 20)}
+            </Text>
+            :
+            item.currency
+            
+}
         </View>
       ))}
     </View>

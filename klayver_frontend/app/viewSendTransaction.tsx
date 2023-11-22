@@ -2,6 +2,7 @@ import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import { View, Text, Button, Pressable } from "react-native";
 import { GridTable } from "../components/Grid";
+import { iconDisplayer } from "../components/IconDisplay/iconDisplay";
 
 const TransactionDetails = () => {
   const params: {
@@ -13,13 +14,13 @@ const TransactionDetails = () => {
   const currency = params.currency ?? "";
   const address = params.address;
   const amount = +params.amount;
-  const icon = params.icon;
   const fee: number = 0.01;
   const charge = fee + currency + "($0.01)";
   const dataTable = [
     {
       title: "Assets",
-      value: currency,
+      currency: iconDisplayer(currency),
+      value: "",
       id: 1,
     },
     {

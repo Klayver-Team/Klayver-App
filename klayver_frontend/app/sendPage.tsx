@@ -1,11 +1,8 @@
 import React from "react";
-import { Linking, Pressable, Text, TouchableOpacity, View } from "react-native";
-import SvgUri from "react-native-svg-uri";
+import { Pressable, Text, View } from "react-native";
 import UsdtIcon from "../assets/icons/usdt.svg";
 import EthIcon from "../assets/icons/eth.svg";
-import { Image } from "react-native-svg";
-import { Link, router } from "expo-router";
-import { useLinkProps, useNavigation } from "@react-navigation/native";
+import { Link } from "expo-router";
 
 const SendMoney = () => {
   const tokenList = [
@@ -32,7 +29,7 @@ const SendMoney = () => {
   ];
 
   return (
-    <View className="my-11 mx-7 rounded flex ">
+    <View className="my-11 mx-4 rounded flex ">
       <Text className="text-3xl mt-10 font-semibold py-10">Select Token</Text>
       {tokenList.map((item) => (
         <Pressable
@@ -60,7 +57,7 @@ const SendMoney = () => {
                     <>
                       {item.otherText.length !== 0 && (
                         <View className="bg-[#EAEAEA] mx-1 flex flex-row rounded-full px-2 py-1 ">
-                          <Text className="text-[#828282] font-semibold">
+                          <Text className="text-[#828282] font-semibold ">
                             {item.otherText.toUpperCase()}
                           </Text>
                         </View>
