@@ -19,4 +19,10 @@ In essence, Klayver's project fits well into the track of real-world assets by i
 * [Joseph Omotade](https://github.com/joeephwild) [Software Engineer]  
 * [Adetola Adeyeye](https://github.com/Tola-byte) [Software Engineer]  
 * [Fiyinfoluwa Adeniran](https://github.com/ebbieaden) [Software Engineer]  
-* [Emmanuel Chukwuemeka](https://github.com/officialemeka) [Lead Designer]  
+* [Emmanuel Chukwuemeka](https://github.com/officialemeka) [Lead Designer]
+
+# 🔗 Links.
+* [Figma](https://www.figma.com/file/nH04ds04lSzGaOR2EDUq9x/Klayver?type=design&node-id=57-410&mode=design&t=G1kNYvsfeNEnqq9p-0)
+
+# 🪪 License.
+Copyright Klayver 2023
