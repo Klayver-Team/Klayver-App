@@ -26,6 +26,16 @@ Klayver seeks to revolutionize recruitment by:
 * Leveraging blockchain on the Klaytn network to address challenges in identifying and harnessing social talent
 * Tokenizing talent and seamlessly integrating the recruitment process into the decentralized realm of blockchain technology
 
+# 🤖 Tools & Technologies.
+* Solidity - smart contract
+* Expo Go - mobile application framework.
+* TypeScript - for static typing.
+* Docker - for containerizing and easy development. (would ask the team if app would be containerized)
+* Tailwind - for styling user interface.
+  
+# 🪙 Local installation.
+
+
 # 👨🏼‍🍳 Team.
 * [Joseph Omotade](https://github.com/joeephwild) [Software Engineer]  
 * [Adetola Adeyeye](https://github.com/Tola-byte) [Software Engineer]  
