@@ -13,6 +13,15 @@ This decentralized approach echoes the real-world dynamics of talent acquisition
 
 In essence, Klayver's project fits well into the track of real-world assets by innovatively applying blockchain technology to tokenize and represent the tangible and valuable asset of human talent in a transparent, secure, and globally accessible manner.
 
+# 💫 Problem Description.
+Traditional recruitment processes lack transparency, efficiency, and security in identifying and utilizing social talent. Centralized structures result in slow and cumbersome procedures, limiting innovation in talent acquisition. Existing systems are prone to inefficiencies, lack transparency, and face data vulnerabilities.
+
+In this context, there is a critical need for a decentralized and secure solution to tap into the full potential of social talent.
+The absence of such a solution hampers industry adaptation, hindering progress in talent acquisition and utilization.
+
+# 🚀 The Solution.
+Klayver seeks to revolutionize recruitment by leveraging blockchain on the Klaytn network to address challenges in identifying and harnessing social talent. The core objective is to tokenize talent, seamlessly integrating the recruitment process into the decentralized realm of blockchain technology.
+
 # 👨🏼‍🍳 Team.
 * [Joseph Omotade](https://github.com/joeephwild) [Software Engineer]  
 * [Adetola Adeyeye](https://github.com/Tola-byte) [Software Engineer]  
