@@ -1,4 +1,4 @@
- # ![Group 1] <img src="https://github.com/Klayver-Team/Klayver-App/assets/66223408/b32de9b4-9864-42a1-aa00-58007eb3cb72" alt="Project Logo" style="margin-top: 20"> Klayver.
+ # <img src="https://github.com/Klayver-Team/Klayver-App/assets/66223408/b32de9b4-9864-42a1-aa00-58007eb3cb72" alt="Project Logo" style="margin-top: 20px"> Klayver.
 
 Klayver addresses the challenges associated with identifying and harnessing social talent by introducing a novel approach that leverages blockchain technology, specifically on the Klaytn network. The core objective of Klayver is to tokenize talent, revolutionizing the recruitment process by integrating it into the decentralized realm of blockchain.
 
