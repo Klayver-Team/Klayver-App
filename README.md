@@ -15,8 +15,8 @@ This decentralized approach echoes the real-world dynamics of talent acquisition
 
 In essence, Klayver's project fits well into the track of real-world assets by innovatively applying blockchain technology to tokenize and represent the tangible and valuable asset of human talent in a transparent, secure, and globally accessible manner.
 
-👨🏼‍🍳 Team.
-[Joseph Omotade](https://github.com/joeephwild).
+# 👨🏼‍🍳 Team.
+[Joseph Omotade](https://github.com/joeephwild) [Software Engineer].
 [Adetola Adeyeye](https://github.com/Tola-byte).
 [Fiyinfoluwa Adeniran](https://github.com/ebbieaden).
 [Emmanuel Chukwuemeka](https://github.com/officialemeka).
