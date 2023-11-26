@@ -8,10 +8,11 @@ interface InputFieldProps {
   rightIconText?: string;
   iconText: string;
   enabled?: boolean;
-  value: any;
+    value: any;
+    onChange?: any;
   fieldId?: number | string,
   placeholder: string;
-  setValue: any;
+ // setValue: any;
 }
 const InputField: React.FC<InputFieldProps> = ({
   label,
@@ -20,7 +21,8 @@ const InputField: React.FC<InputFieldProps> = ({
   value,
   enabled,
   placeholder,
-  setValue,
+   // setValue,
+  onChange,
   fieldId,
   balance,
 }) => {
@@ -37,13 +39,13 @@ const InputField: React.FC<InputFieldProps> = ({
           {rightIconText}
         </Text>
         <TextInput
-          onChangeText={(inputText) => setValue(inputText)}
-          //onChangeText={(inputText) => setValue(fieldId, inputText)}
+          //onChangeText={(inputText) => setValue(inputText)}
+          onChangeText={onChange}
           value={value}
           editable={enabled}
           placeholderTextColor={"#828282"}
           placeholder={placeholder}
-          className="text-sm h-6 px-4 text-break w-[90%]"
+          className="text-sm h-8 text-break w-[90%]"
         />
         <Text className="flex text-[#FB8B04] relative right-3 top-2 left-3 ml-9 mr-4 font-bold text-xl justify-end ">
           {iconText}

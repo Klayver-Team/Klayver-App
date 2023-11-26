@@ -128,6 +128,7 @@ const LoanPage = () => {
           value={address}
           placeholder="Enter address"
           setValue={setAddress}
+          rightIconText=""
           iconText="PASTE"
         />
 

@@ -24,6 +24,7 @@ const SenderDetails = () => {
         label="To"
         value={address}
         setValue={setAddress}
+        rightIconText=""
         placeholder="Enter receiver's address"
         iconText="PASTE"
       />
@@ -34,6 +35,7 @@ const SenderDetails = () => {
         placeholder={`Enter ${currency} amount`}
         currency={currency}
         value={amount}
+        rightIconText=""
         setValue={setAmount}
         iconText="MAX"
       />
