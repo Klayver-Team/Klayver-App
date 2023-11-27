@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+  Alert,
   Animated,
   Pressable,
   ScrollView,
@@ -13,6 +14,7 @@ import WalletConnect from "../../assets/icons/walletconnect.svg";
 import Coinbase from "../../assets/icons/coinbase.svg";
 import RightIcon from "../../assets/icons/rightIcon.svg";
 import LeftIcon from "../../assets/icons/leftIcon.svg";
+import { useAuth } from "../../context/AuthContext";
 const Card = () => {
   const myButtons = [
     {
@@ -54,7 +56,10 @@ const Card = () => {
 };
 const LoginForm = () => {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [selectedTab, setSelectedTab] = useState("A");
+
+  const { createAnEOA } = useAuth()
 
   return (
     <ScrollView className="bg-[#fff] ">
@@ -107,7 +112,7 @@ const LoginForm = () => {
         </View>
         {selectedTab === "A" ? (
           <>
-            <View className="mt-[90px] mb-12">
+            <View className="mt-[60px] space-y-[16px] mb-12">
               <TextInput
                 onChangeText={(inputText) => setEmail(inputText)}
                 editable={true}
@@ -118,11 +123,21 @@ const LoginForm = () => {
                   backgroundColor: "#f4f4f4",
                 }}
               />
+              <TextInput
+                onChangeText={(inputText) => setPassword(inputText)}
+                editable={true}
+                placeholderTextColor={"#828282"}
+                placeholder={"Enter valid Password"}
+                className="text-sm p-8 text-[18px] text-black rounded-[10px] text-break w-full"
+                style={{
+                  backgroundColor: "#f4f4f4",
+                }}
+              />
             </View>
 
             <TouchableHighlight
               className="bg-[#F88908] rounded-[30px] p-1 mt-[10px]"
-              onPress={() => console.log("okay")}
+              onPress={() => Alert.alert(password, email)}
             >
               <Text className="text-[#fff] p-3 text-center font-semibold text-[20px]">
                 Continue with email
@@ -144,4 +159,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
