@@ -7,7 +7,7 @@ export interface Finance{
     title: string,
     body: string,
     buttontext: string,
-    path: Href<string>
+    path?: Href<string>
 }
 
 export interface FieldTexts{
@@ -34,7 +34,7 @@ export const FinanceTexts : Finance[]= [
         title: "Insurance",
         body: "Protect your today for a secure tomorrow with our comprehensive insurance coverage",
         buttontext: "Get a insurance",
-        path: "/talentForm"
+        path: "/(tabs)/finance"
     }
 ]
  export const FormInputFields: FieldTexts[] = [{
