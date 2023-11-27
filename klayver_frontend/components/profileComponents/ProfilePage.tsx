@@ -30,7 +30,7 @@ const WalletPage = () => {
             </View>
           </View>
           <Pressable
-            onPress={() => router.push("/(tabs)/(home)/workForm")}
+            onPress={() => router.push("/talentForm")}
             className="py-[5px] px-[10px] border rounded-[20px]"
           >
             <Text className="text-Orange text-[14px] font-medium">

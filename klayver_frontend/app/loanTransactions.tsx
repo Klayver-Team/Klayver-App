@@ -5,12 +5,12 @@ import { GridTable } from "../components/Grid";
 import { iconDisplayer } from "../components/IconDisplay/iconDisplay";
 const LoanTransactions = () => {
   const params: {
-    loanToken: string,
-    collateralToken: string,
-    selectedDuration: string,
-    collateralAmt: string
+    loanToken: string;
+    collateralToken: string;
+    selectedDuration: string;
+    collateralAmt: string;
   } = useLocalSearchParams();
-  const loanToken = params.loanToken
+  const loanToken = params.loanToken;
   const collateralToken = params?.collateralToken;
   const days = params?.selectedDuration;
   const amount = params?.collateralAmt;

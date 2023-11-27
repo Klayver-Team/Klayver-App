@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { View, Text} from "react-native";
-import { Link,useLocalSearchParams } from "expo-router";
+import { View, Text } from "react-native";
+import { Link, useLocalSearchParams } from "expo-router";
 import UsdtIcon from "../assets/icons/usdt.svg";
 import EthIcon from "../assets/icons/eth.svg";
 import InputField from "../components/Input";
@@ -9,13 +9,17 @@ const SenderDetails = () => {
   const currency: string = params.currency ?? "";
   const [amount, setAmount] = useState("");
   const [address, setAddress] = useState("");
-  
+
   return (
     <View className="my-11 mx-7 rounded flex ">
       <Text className="text-3xl mt-10 font-semibold py-10">
         Send
         <View className="py-10 px-2">
-          {currency === "USDT" ? <UsdtIcon height={40} /> : <EthIcon />}
+          {currency === "USDT" ? (
+            <UsdtIcon height={40} />
+          ) : (
+            <EthIcon height={40} />
+          )}
         </View>
         {currency}
       </Text>
@@ -24,6 +28,7 @@ const SenderDetails = () => {
         label="To"
         value={address}
         setValue={setAddress}
+        rightIconText=""
         placeholder="Enter receiver's address"
         iconText="PASTE"
       />
@@ -34,6 +39,7 @@ const SenderDetails = () => {
         placeholder={`Enter ${currency} amount`}
         currency={currency}
         value={amount}
+        rightIconText=""
         setValue={setAmount}
         iconText="MAX"
       />
