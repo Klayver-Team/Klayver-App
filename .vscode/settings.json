@@ -1,3 +1,7 @@
 {
+<<<<<<< HEAD
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+=======
+    "editor.inlineSuggest.showToolbar": "always"
+>>>>>>> f067d34 (Klay committed)
 }
