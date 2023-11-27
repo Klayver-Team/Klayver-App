@@ -4,7 +4,6 @@ import UsdtIcon from "../assets/icons/usdt.svg";
 import EthIcon from "../assets/icons/eth.svg";
 import { Link } from "expo-router";
 
-
 const ReceiveMoney = () => {
   const tokenList = [
     {

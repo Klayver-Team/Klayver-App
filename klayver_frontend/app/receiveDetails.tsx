@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Pressable,
-} from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import * as Clipboard from "expo-clipboard";
 import { useLocalSearchParams, useNavigation } from "expo-router";
@@ -43,7 +39,11 @@ const ReceiveDetails = () => {
       <Text className="text-3xl mt-10 py-10 text-center font-semibold">
         Receive
         <View className="py-9 px-2">
-          {currency === "USDT" ? <UsdtIcon height={40} /> : <EthIcon />}
+          {currency === "USDT" ? (
+            <UsdtIcon height={40} />
+          ) : (
+            <EthIcon height={40} />
+          )}
         </View>
         {currency}
       </Text>
