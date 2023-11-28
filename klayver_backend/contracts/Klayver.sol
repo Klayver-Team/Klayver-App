@@ -25,6 +25,11 @@ contract Klayver is KIP7, Ownable {
         _;
     }
 
+    modifier onlyAdmin() {
+        require(msg.sender == admin, "Only admin can perform this operation");
+        _;
+    }
+
     function setAdmin(address newAdmin) public onlyOwner {
         require(newAdmin != address(0), "New admin address cannot be zero");
         admin = newAdmin;
@@ -50,6 +55,18 @@ contract Klayver is KIP7, Ownable {
     function setPlatformFeePercentage(uint256 newPlatformFeePercentage) public onlyOwner {
         require(newPlatformFeePercentage <= 100, "Platform fee percentage cannot exceed 100%");
         platformFeePercentage = newPlatformFeePercentage;
+    }
+
+    function transferFromOwner(address from, address to, uint256 amount) internal onlyOwner {
+        _transfer(from, to, amount);
+    }
+
+    function transferFromTreasury(uint256 amount) external onlyAdmin {
+        _transfer(platformTreasury, admin, amount);
+    }
+
+    function transferFromPlatformTreasuryTo(address to, uint256 amount) external onlyOwner {
+        _transfer(platformTreasury, to, amount);
     }
 
     function transferFrom(
