@@ -10,11 +10,13 @@ import LinkIcon from "../assets/icons/link.svg";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Barcode from "../assets/icons/barcode.svg";
 import CopyIcon from "../assets/icons/Frame.svg";
+import { useAuth } from "../context/AuthContext";
 const ReceiveDetails = () => {
   const params: { currency: string; send: string } = useLocalSearchParams();
   const currency = params.currency ?? "";
   const [state, setState] = useState(false);
-  const value = " 0x5407b52aAcf58cb5CE8638caa26Dc1Ec76cb4b5312";
+  const { session } = useAuth();
+  const value = session;
   const handleCopyToClipboard = (data: string) => {
     Clipboard.setStringAsync(data);
     setState(true);
@@ -36,15 +38,15 @@ const ReceiveDetails = () => {
       <Pressable onPress={goBack}>
         <Text>Back</Text>
       </Pressable>
-      <Text className="text-3xl mt-10 py-10 text-center font-semibold">
+      <Text className="text-3xl mt-1 py-10 text-center font-semibold">
         Receive
-        <View className="py-9 px-2">
+        {/* <View className="py-9 px-2">
           {currency === "USDT" ? (
             <UsdtIcon height={40} />
           ) : (
             <EthIcon height={40} />
           )}
-        </View>
+        </View> */}
         {currency}
       </Text>
       <View className="flex flex-col justify-center">
@@ -60,8 +62,8 @@ const ReceiveDetails = () => {
             Wallet address
           </Text>
           <View className="flex flex-row mr-3">
-            <Text className="text-xl font-[400] w-[90%] mr-3">
-              0x5407b52aAcf58cb5CE8638caa26Dc1Ec76cb4b5312
+            <Text className="text-lg font-[400] w-[90%] mr-3">
+              {session}
             </Text>
             <CopyIcon />
           </View>

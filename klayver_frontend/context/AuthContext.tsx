@@ -1,12 +1,8 @@
 import { router, useNavigation, useSegments } from "expo-router";
 import React, { useEffect, useState } from "react";
-import {
-  createAccount,
-  getAccount,
-  permanentlyDeleteAccount,
-} from "@rly-network/mobile-sdk";
+import { createAccount, getAccount, permanentlyDeleteAccount } from "@rly-network/mobile-sdk";
 import { Alert } from "react-native";
-import { User, createUserWithEmailAndPassword } from "firebase/auth";
+import { User as FirebaseAuthUser, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
 type Session = string | undefined;
@@ -17,39 +13,40 @@ type AuthContextValue = {
   // Add other values you want to provide through the context here
 };
 
-const AuthContext = React.createContext<AuthContextValue | null>(null);
+const AuthContext = React.createContext<AuthContextValue>({
+  session: undefined,
+  createAnEOA: async () => {
+    // Default implementation, you may want to handle this differently
+    console.warn("createAnEOA function not implemented");
+  },
+});
 
-// This hook can be used to access the user info.
 export function useAuth() {
   return React.useContext(AuthContext);
 }
 
-// This hook will protect the route access based on user authentication.
 function useProtectedRoute(session: Session) {
   const segments = useSegments();
-  const navigate = useNavigation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const inAuthGroup = segments[0] === "(auth)";
 
-    if (
-      // If the user is not signed in and the initial segment is not anything in the auth group.
-      !session &&
-      !inAuthGroup
-    ) {
-      // Redirect to the sign-in page.
+    if (!session && !inAuthGroup) {
       router.replace("/(auth)/login");
     } else if (session && inAuthGroup) {
-      // Redirect away from the sign-in page.
       router.replace("/(tabs)/(home)");
     }
   }, [session, segments]);
 }
 
-export function AuthProvider(props: any) {
-  const [session, setSession] = React.useState<Session>();
-  const [user, setUser] = useState<User | null>(null);
-  const navigate = useNavigation();
+type AuthProviderProps = {
+  // createUserWithEmailAndPassword: (auth: any, email: string, password: string) => Promise<any>;
+  children: React.ReactNode;
+};
+
+export function AuthProvider({ children }: AuthProviderProps) {
+  const [session, setSession] = useState<Session>();
+  const [user, setUser] = useState<FirebaseAuthUser | null>(null);
 
   useProtectedRoute(session);
 
@@ -60,11 +57,7 @@ export function AuthProvider(props: any) {
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       setUser(user);
 
@@ -87,23 +80,22 @@ export function AuthProvider(props: any) {
   };
 
   useEffect(() => {
-    const retriveAccount = async () => {
-      // get current user account address
+    const retrieveAccount = async () => {
       const account = await getAccount();
       setSession(account);
     };
 
-    retriveAccount();
+    retrieveAccount();
   }, [session]);
 
+  const contextValue: AuthContextValue = {
+    session,
+    createAnEOA,
+  };
+
   return (
-    <AuthContext.Provider
-      value={{
-        session,
-        createAnEOA,
-      }}
-    >
-      {props.children}
+    <AuthContext.Provider value={contextValue}>
+      {children}
     </AuthContext.Provider>
   );
 }

@@ -94,7 +94,7 @@ const ProfilePage = ({ navigation }: any) => {
       icon: "arrow-down",
       name: "Receive",
       id: 2,
-      action: () => router.push("/receivePage"),
+      action: () => router.push("/receiveDetails"),
     },
     {
       icon: "hand-holding-usd",

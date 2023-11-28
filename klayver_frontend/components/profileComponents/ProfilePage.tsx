@@ -6,9 +6,11 @@ import WorkCard from "../Cards/WorkCard";
 import ReviewCard from "../Cards/ReviewCard";
 import { router } from "expo-router";
 import TalentCard from "../Cards/TalentCard";
+import { useAuth } from "../../context/AuthContext";
 
 const WalletPage = () => {
   const style = {};
+  const { session } = useAuth();
   return (
     <View>
       <View className="px-[20px] mt-[51px]">
@@ -22,7 +24,7 @@ const WalletPage = () => {
             />
             <View className="items-start pt-2">
               <Text className="text-[14px] font-bold text-black">
-                0xacel.eth
+                @{session?.slice(0, 6)}...{session?.slice(30, 46)}
               </Text>
               <Text className="text-[14px] text-[#BDBDBD] font-normal">
                 Blockchain Engineer

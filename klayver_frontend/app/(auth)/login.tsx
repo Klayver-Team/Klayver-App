@@ -24,7 +24,7 @@ const Card = () => {
     },
     {
       id: 2,
-      icon: <WalletConnect />,
+      icon: <WalletConnect onPress={() => Alert.alert("hello")} />,
       title: "WalletConnect",
     },
     {
@@ -39,7 +39,7 @@ const Card = () => {
         return (
           <Pressable
             key={item.id}
-            onPress={() => console.log("ok")}
+            onPress={() => console.log(item.title)}
             className="bg-[#f4f4f4] rounded-[20px] mt-4 p-5"
           >
             <View className="flex flex-row">
@@ -59,7 +59,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [selectedTab, setSelectedTab] = useState("A");
 
-  const { createAnEOA } = useAuth()
+  const { createAnEOA } = useAuth();
 
   return (
     <ScrollView className="bg-[#fff] ">
@@ -137,7 +137,7 @@ const LoginForm = () => {
 
             <TouchableHighlight
               className="bg-[#F88908] rounded-[30px] p-1 mt-[10px]"
-              onPress={() => Alert.alert(password, email)}
+              onPress={() => createAnEOA(email, password)}
             >
               <Text className="text-[#fff] p-3 text-center font-semibold text-[20px]">
                 Continue with email
