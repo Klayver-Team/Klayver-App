@@ -15,12 +15,9 @@ import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { ScrollView } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
-import { uploadFile } from "@mintbase-js/storage";
-import * as FileSystem from "expo-file-system";
 
-const CreatePost = () => {
+const createPost = () => {
   const [selectedImages, setSelectedArrayOfImages] = useState<string[]>([]);
-  // const [selectedImage, setSelectedImage] = useState(null);
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -30,26 +27,25 @@ const CreatePost = () => {
       selectionLimit: 1,
     });
 
-    if (!result.canceled) {
-      const fileUri = result.assets[0].uri;
-      const fileInfo = await FileSystem.getInfoAsync(fileUri);
-      if (fileInfo.exists) {
-        const fileData = await FileSystem.readAsStringAsync(fileUri, {
-          encoding: FileSystem.EncodingType.Base64,
-        });
-        const blob = await fetch(`data:image/jpg;base64,${fileData}`).then(
-          (r) => r.blob()
-        );
-        const file = new File([blob], "filename.jpg", { type: "image/jpg" });
-        const uploadResult = await uploadFile(file);
-        const imageUrl = `https://arweave.net/${uploadResult.id}`;
-        // setSelectedArrayOfImages(imageUrl);
-      }
-    } else {
-      alert("You did not select any image.");
-    }
+    // if (!result.canceled) {
+    //   const fileUri = result.assets[0].uri;
+    //   const fileInfo = await FileSystem.getInfoAsync(fileUri);
+    //   if (fileInfo.exists) {
+    //     const fileData = await FileSystem.readAsStringAsync(fileUri, {
+    //       encoding: FileSystem.EncodingType.Base64,
+    //     });
+    //     const blob = await fetch(`data:image/jpg;base64,${fileData}`).then(
+    //       (r) => r.blob()
+    //     );
+    //     const file = new File([blob], "filename.jpg", { type: "image/jpg" });
+    //     // const uploadResult = await uploadFile(file);
+    //     // const imageUrl = `https://arweave.net/${uploadResult.id}`;
+    //     // setSelectedArrayOfImages(imageUrl);
+    //   }
+    // } else {
+    //   alert("You did not select any image.");
+    // }
   };
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
@@ -118,7 +114,7 @@ const CreatePost = () => {
                   </Pressable>
                 </View>
               </View>
-              {selectedImages.map((item, i) => (
+              {/* {selectedImages.map((item, i) => (
                 <View key={i} className="px-[10px]">
                   <Image
                     source={{
@@ -127,7 +123,7 @@ const CreatePost = () => {
                     className="w-[95px] h-[95px] object-contain rounded-[20px]"
                   />
                 </View>
-              ))}
+              ))} */}
             </ScrollView>
           </View>
         </SafeAreaView>
@@ -136,4 +132,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default createPost;
