@@ -5,8 +5,8 @@ import KlayverTokenAbi from "./Token.json";
 import { ethers } from "ethers";
 
 const klayver = "0x4b7Ffa2576ea1F8c8761ccFCCB62d1c86672a3f6";
-const klayverProfile = "0xbd489ae89398AF3dCaC60EF7Ca178CcA18c17E80";
-const token = "0x3eAEaC76A68d50977e6aF00E1D1110A8B61531Aa";
+const klayverProfile = "0x815B5034b894E855E29B5286696b5ce7Ed643bbc";
+const token = "0xf9772132CA9293105051E0d320553A5937069d3f";
 
 const KlayverABI = klayAbi.abi;
 const klayverProfileABI = klayverProfileAbi.abi;

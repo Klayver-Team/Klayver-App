@@ -3,9 +3,9 @@
 pragma solidity ^0.8.17;
 
 import "@klaytn/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@klaytn/contracts/KIP/token/KIP17/extensions/KIP17Enumerable.sol";
 
-contract KlayContent is ERC721Enumerable {
+contract KlayContent is KIP17Enumerable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
@@ -19,7 +19,7 @@ contract KlayContent is ERC721Enumerable {
 
     mapping(uint256 => Klay) private _klays;
 
-    constructor() ERC721("KlayContent", "KCT") {}
+    constructor() KIP17("KlayContent", "KCT") {}
 
     modifier tokenExists(uint256 klayId) {
         require(_exists(klayId), "Token does not exist");
