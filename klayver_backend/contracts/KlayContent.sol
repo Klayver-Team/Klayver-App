@@ -11,7 +11,7 @@ contract KlayContent is ERC721Enumerable {
     Counters.Counter private _tokenIdCounter;
 
     struct Klay {
-        string[] image;
+        string image;
         string post;
         address owner;
         uint256 klayId;
@@ -21,7 +21,17 @@ contract KlayContent is ERC721Enumerable {
 
     constructor() ERC721("KlayContent", "KCT") {}
 
-    function createAKlay(string[] memory _newImage, string memory _newPost) external {
+    modifier tokenExists(uint256 klayId) {
+        require(_exists(klayId), "Token does not exist");
+        _;
+    }
+
+    modifier onlyTokenOwner(uint256 klayId) {
+        require(ownerOf(klayId) == msg.sender, "Not the owner of the token");
+        _;
+    }
+
+    function createAKlay(string memory _newImage, string memory _newPost) external {
         uint256 newTokenId = _tokenIdCounter.current();
         _safeMint(msg.sender, newTokenId);
 
@@ -45,15 +55,19 @@ contract KlayContent is ERC721Enumerable {
         return result;
     }
 
-    function mintPost(uint256 klayId) external {
-        require(_exists(klayId), "Token does not exist");
-        require(ownerOf(klayId) != msg.sender, "Cannot mint your own post");
+    function mintPost(uint256 klayId) external tokenExists(klayId) onlyTokenOwner(klayId) {
+        Klay storage klay = _klays[klayId];
 
         // Implement your minting logic here
-        // For example, you could transfer ownership of the post to the caller
+        // For example, transfer ownership of the post to the caller
+        klay.owner = msg.sender;
 
         // Emit an event or perform any additional logic as needed
+        emit PostMinted(msg.sender, klayId);
 
         // You can also customize this function based on your specific minting requirements
     }
+
+    // Event to log post minting
+    event PostMinted(address indexed minter, uint256 indexed klayId);
 }

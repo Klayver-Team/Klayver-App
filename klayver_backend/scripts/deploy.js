@@ -15,21 +15,22 @@ async function main() {
 
   const klayver = await ethers.deployContract("Klayver");
   const klayverProfile = await ethers.deployContract("KlayverProfile");
-  // const klayverToken = await ethers.deployContract("KlayverToken");
+  const klayverLoan = await ethers.deployContract("KlayverLoan");
   const token = await ethers.deployContract("Token");
+  // const klay
 
   console.log("Deploying Klayver");
   await klayver.waitForDeployment();
   console.log("Deploying KlayProfile");
   await klayverProfile.waitForDeployment();
-  console.log("Deploying KlayverToken");
-  // await klayverToken.waitForDeployment();
+  console.log("Deploying KlayverLoan");
+  await klayverLoan.waitForDeployment();
   console.log("Deploying Token");
   await token.waitForDeployment();
 
   console.log(`Klayver successfully deployed ${klayver.target}`);
   console.log(`KlayProfile successfully deployed ${klayverProfile.target}`);
-  // console.log(`KlayverToken successfully deployed ${klayverToken.address}`);
+  console.log(`KlayverLoan successfully deployed ${klayverLoan.address}`);
   console.log(`Token successfully deployed ${token.target}`);
   console.log("Deployment completed!");
 }

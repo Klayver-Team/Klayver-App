@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import InputField from "../components/MultipleInput";
 import { FieldTexts, FormInputFields } from "../utils/data";
+import { createProfile } from "../utils/KlayverProfile";
 
 const Form = () => {
   const [formState, setFormState] = useState<any>({
@@ -26,6 +27,10 @@ const Form = () => {
       [fieldName]: value,
     }));
   };
+
+  const handleSubmit = async() => {
+    createProfile(formState)
+  }
 
   return (
     <ScrollView>
