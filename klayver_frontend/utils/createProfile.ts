@@ -1,9 +1,13 @@
+import { connectWithContract } from "../constants/contractVariable";
+
 
 interface WalletProfile {
   walletAddress: string;
   ownerName: string;
   balance: number;
 }
+
+
 
 function createWalletProfile(ownerName: string, initialBalance: number): WalletProfile {
  
