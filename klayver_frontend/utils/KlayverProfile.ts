@@ -140,13 +140,10 @@ export const useKlayProfile = () => {
 
   const retrieveKlays = async () => {
     try {
-      const contract = await connectWithContract(
-        klayverProfile,
-        klayverProfileABI
-      );
+      const contract = await connectWithContract(content, contentABI);
       const tx = await contract?.retrieveKlays();
-      const receipt = tx.wait();
-      console.log(receipt.transactionhash);
+      console.log("POST", tx);
+      return tx;
     } catch (error) {
       console.log(error);
     }
@@ -154,13 +151,11 @@ export const useKlayProfile = () => {
 
   const mintPost = async (id: number) => {
     try {
-      const contract = await connectWithContract(
-        klayverProfile,
-        klayverProfileABI
-      );
+      const contract = await connectWithContract(content, contentABI);
       const tx = await contract?.mintPost(id);
       const receipt = tx.wait();
       console.log(receipt.transactionhash);
+      return tx;
     } catch (error) {
       console.log(error);
     }
@@ -178,6 +173,6 @@ export const useKlayProfile = () => {
     tokens,
     createAKlay,
     retrieveKlays,
-    mintPost
+    mintPost,
   };
 };

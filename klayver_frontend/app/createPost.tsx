@@ -97,7 +97,10 @@ const createPost = () => {
         >
           <View className="flex-row items-center justify-between px-[20px]">
             <FontAwesome onPress={() => router.back()} name="close" size={24} />
-            <Pressable onPress={handleSubmit} className="bg-Orange px-[36.425px] py-[18.21px] rounded-[20px]">
+            <Pressable
+              onPress={handleSubmit}
+              className="bg-Orange px-[36.425px] py-[18.21px] rounded-[20px]"
+            >
               <Text className="text-white text-[16px]">Post Klay</Text>
             </Pressable>
           </View>
@@ -131,7 +134,7 @@ const createPost = () => {
           {selectedImages && (
             <Image
               source={{
-                uri: "https://images.pexels.com/photos/3938465/pexels-photo-3938465.jpeg?auto=compress&cs=tinysrgb&w=1600",
+                uri: selectedImages,
               }}
               className="w-full h-[250px] object-cover rounded-[20px] mt-[15px]"
             />

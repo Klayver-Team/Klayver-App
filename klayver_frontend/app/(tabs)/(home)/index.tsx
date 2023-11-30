@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Image } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import Header from "../../../components/Header";
@@ -7,11 +7,23 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { logo } from "../../../assets/images";
 import { router, useRouter } from "expo-router";
 import PostCard from "../../../components/Cards/PostCard";
+import { useKlayProfile } from "../../../utils/KlayverProfile";
+import { useAuth } from "../../../context/AuthContext";
 
 const Home = () => {
+  const { retrieveKlays } = useKlayProfile();
+  const { session } = useAuth();
   const [allPost, setAllPost] = useState([
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
   ]);
+
+  useEffect(() => {
+    const getPost = async () => {
+      const post = await retrieveKlays();
+      console.log(post)
+    };
+    getPost();
+  }, [session]);
 
   return (
     <SafeAreaView

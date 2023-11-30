@@ -8,23 +8,113 @@ import {
 } from "react-native-gesture-handler";
 import { router } from "expo-router";
 import { useAuth } from "../../context/AuthContext";
+import { ethers } from "ethers";
+import axios from "axios";
+import { useKlayProfile } from "../../utils/KlayverProfile";
 
 const ProfilePage = ({ navigation }: any) => {
-  const { balance, data, tokenBalance, permanentlyDeleteAccount } = useAuth();
+  const {
+    balance,
+    data,
+    tokenBalance,
+    permanentlyDeleteAccount,
+    session,
+    setBalance,
+    setTokenBalance,
+  } = useAuth();
+  const { retriveTokens, getToken, tokens } = useKlayProfile();
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   axios
-  //     .get(url)
-  //     .then((response) => {
-  //       setData(response.data);
-  //       setIsLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       setIsLoading(false);
-  //     });
-  // }, []);
+  const erc20Abi = [
+    // Some details about the token
+    "function name() view returns (string)",
+    "function symbol() view returns (string)",
+    "function decimals() view returns (uint8)",
+    // Get the account balance
+    "function balanceOf(address) view returns (uint)",
+  ];
+
+  async function getERC20Balance(
+    userAddress: any,
+    tokenContractAddress: any,
+    providerUrl: string
+  ) {
+    const provider = new ethers.providers.JsonRpcProvider(providerUrl);
+    const tokenContract = new ethers.Contract(
+      tokenContractAddress,
+      erc20Abi,
+      provider
+    );
+    const balance = await tokenContract.balanceOf(userAddress);
+
+    // Since ERC20 tokens can have different decimal values, we need to adjust for that
+    const decimals = await tokenContract.decimals();
+    const adjustedBalance = balance / Math.pow(10, decimals);
+
+    return adjustedBalance;
+  }
+
+  async function getKlaytnBalance(userAddress: any, providerUrl: string) {
+    const provider = new ethers.providers.JsonRpcProvider(providerUrl);
+    const balance = await provider.getBalance(userAddress);
+    const balanceInKlay = ethers.utils.formatEther(balance);
+
+    // Get the current KLAY to USD exchange rate
+    const response = await axios.get(
+      "https://api.coingecko.com/api/v3/simple/price?ids=klay-token&vs_currencies=usd"
+    );
+    const exchangeRate = response.data["klay-token"].usd;
+
+    // Convert the balance to USD and round to two decimal places
+    const balanceInUSD = (parseFloat(balanceInKlay) * exchangeRate).toFixed(2);
+
+    return balanceInUSD;
+  }
+
+  useEffect(() => {
+    const getBalance = async () => {
+      if (!session) {
+        console.error("Session is not initialized");
+        return;
+      }
+      try {
+        getKlaytnBalance(session, "https://api.baobab.klaytn.net:8651")
+          .then((balance) => {
+            // console.log(balance);
+            setBalance(balance);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getBalance();
+  }, [session]);
+
+  useEffect(() => {
+    const getBalance = async () => {
+      if (!session) {
+        console.error("Session is not initialized");
+        return;
+      }
+      try {
+        getERC20Balance(session, tokens, "https://api.baobab.klaytn.net:8651")
+          .then((balance) => {
+            console.log("erc20", balance);
+            setTokenBalance(balance);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+        retriveTokens();
+        getToken();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getBalance();
+  }, [session]);
 
   const transact = [
     {
@@ -96,7 +186,10 @@ const ProfilePage = ({ navigation }: any) => {
 
       {/** Your token section */}
       <View className="mt-[115px] mx-[20px]">
-        <Pressable onPress={permanentlyDeleteAccount} className="flex-row items-center min-w-screen rounded-[20px] justify-center bg-red-600 py-[16px]">
+        <Pressable
+          onPress={permanentlyDeleteAccount}
+          className="flex-row items-center min-w-screen rounded-[20px] justify-center bg-red-600 py-[16px]"
+        >
           <Text className="text-[14px] text-white font-bold  text-Black">
             Delete Wallet
           </Text>

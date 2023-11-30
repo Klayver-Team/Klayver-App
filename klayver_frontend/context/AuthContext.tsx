@@ -9,6 +9,7 @@ import { Alert } from "react-native";
 import {
   User as FirebaseAuthUser,
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../firebase";
 import axios from "axios";
@@ -34,6 +35,9 @@ type AuthContextValue = {
   permanentlyDeleteAccount: () => Promise<void>;
   userAcc: never[];
   loading: boolean;
+  setBalance: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setTokenBalance: React.Dispatch<React.SetStateAction<number | undefined>>;
   // Add other values you want to provide through the context here
 };
 
@@ -52,6 +56,9 @@ const AuthContext = React.createContext<AuthContextValue>({
   },
   userAcc: [],
   loading: false,
+  setBalance: () => {}, // Add this line
+  setIsLoading: () => {}, // Add this line
+  setTokenBalance: () => {}, // Add this line
 });
 
 export function useAuth() {
@@ -85,6 +92,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // Then use it in your state declaration
   const [data, setData] = useState<DataItem[]>([]);
   const [tokenBalance, setTokenBalance] = useState<number>();
+  console.log("user", session);
 
   const { retriveData, filterForUser, retriveTokens, getToken, tokens } =
     useKlayProfile();
@@ -103,98 +111,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const url =
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=20&page=1&sparkline=false&price_change_percentage=7d&locale=en&precision=full";
-
-  const erc20Abi = [
-    // Some details about the token
-    "function name() view returns (string)",
-    "function symbol() view returns (string)",
-    "function decimals() view returns (uint8)",
-    // Get the account balance
-    "function balanceOf(address) view returns (uint)",
-  ];
-
-  async function getERC20Balance(
-    userAddress: any,
-    tokenContractAddress: any,
-    providerUrl: string
-  ) {
-    const provider = new ethers.providers.JsonRpcProvider(providerUrl);
-    const tokenContract = new ethers.Contract(
-      tokenContractAddress,
-      erc20Abi,
-      provider
-    );
-    const balance = await tokenContract.balanceOf(userAddress);
-
-    // Since ERC20 tokens can have different decimal values, we need to adjust for that
-    const decimals = await tokenContract.decimals();
-    const adjustedBalance = balance / Math.pow(10, decimals);
-
-    return adjustedBalance;
-  }
-
-  async function getKlaytnBalance(userAddress: any, providerUrl: string) {
-    const provider = new ethers.providers.JsonRpcProvider(providerUrl);
-    const balance = await provider.getBalance(userAddress);
-    const balanceInKlay = ethers.utils.formatEther(balance);
-
-    // Get the current KLAY to USD exchange rate
-    const response = await axios.get(
-      "https://api.coingecko.com/api/v3/simple/price?ids=klay-token&vs_currencies=usd"
-    );
-    const exchangeRate = response.data["klay-token"].usd;
-
-    // Convert the balance to USD and round to two decimal places
-    const balanceInUSD = (parseFloat(balanceInKlay) * exchangeRate).toFixed(2);
-
-    return balanceInUSD;
-  }
-
-  useEffect(() => {
-    const getBalance = async () => {
-      if (!session) {
-        console.error("Session is not initialized");
-        return;
-      }
-      try {
-        getKlaytnBalance(session, "https://api.baobab.klaytn.net:8651")
-          .then((balance) => {
-            // console.log(balance);
-            setBalance(balance);
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getBalance();
-  }, [balance, session]);
-
-  useEffect(() => {
-    const getBalance = async () => {
-      if (!session) {
-        console.error("Session is not initialized");
-        return;
-      }
-      try {
-        getERC20Balance(session, tokens, "https://api.baobab.klaytn.net:8651")
-          .then((balance) => {
-            console.log("erc20", balance);
-            setTokenBalance(balance);
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
-        retriveTokens();
-        getToken();
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getBalance();
-  }, [balance, session]);
 
   useProtectedRoute(session);
 
@@ -235,6 +151,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const retrieveAccount = async () => {
       const account = await getAccount();
       setSession(account);
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/auth.user
+          const uid = user.uid;
+          // ...
+          router.push("/(tabs)/(home)");
+        } else {
+          // User is signed out
+          // ...
+          router.push("/(auth)/login");
+        }
+      });
     };
 
     retrieveAccount();
@@ -249,6 +178,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     permanentlyDeleteAccount,
     loading,
     userAcc,
+    setBalance,
+    setIsLoading,
+    setTokenBalance,
   };
 
   return (
