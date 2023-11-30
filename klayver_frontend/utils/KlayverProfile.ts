@@ -9,6 +9,7 @@ import {
   contentABI,
 } from "../constants/contractVariable";
 import { useAuth } from "../context/AuthContext";
+import { ethers } from "ethers";
 
 interface klayverProfile {
   _name: string;
@@ -24,6 +25,7 @@ export const useKlayProfile = () => {
   const [allProfile, setAllProfile] = useState([]);
   const [isLoading, setIsLoading] = useState("");
   const [tokens, setTokens] = useState("");
+  const [balances, setBlance] = useState("");
 
   const { session } = useAuth();
 
@@ -54,8 +56,12 @@ export const useKlayProfile = () => {
     try {
       const contract = await connectWithContract(token, tokenAbi);
       const tx = await contract?.retrieveUserBalance(session);
-      console.log("balance", tx);
-      return tx;
+      let balance = ethers.BigNumber.from(tx);
+      let balanceNumber = balance.toString();
+      const bl = ethers.utils.formatEther(balanceNumber);
+      setBlance(bl);
+      console.log("balance", balanceNumber);
+      return balanceNumber;
     } catch (error) {
       console.log(error);
     }
@@ -186,5 +192,6 @@ export const useKlayProfile = () => {
     retrieveKlays,
     mintPost,
     retriveBalance,
+    balances,
   };
 };

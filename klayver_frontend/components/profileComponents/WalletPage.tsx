@@ -22,7 +22,8 @@ const ProfilePage = ({ navigation }: any) => {
     setBalance,
     setTokenBalance,
   } = useAuth();
-  const { retriveTokens, getToken, tokens, retriveBalance } = useKlayProfile();
+  const { retriveTokens, getToken, tokens, retriveBalance, balances } =
+    useKlayProfile();
 
   const erc20Abi = [
     // Some details about the token
@@ -85,7 +86,7 @@ const ProfilePage = ({ navigation }: any) => {
           .catch((error) => {
             console.error("Error:", error);
           });
-          retriveBalance()
+        retriveBalance();
       } catch (error) {
         console.log(error);
       }
@@ -100,14 +101,6 @@ const ProfilePage = ({ navigation }: any) => {
         return;
       }
       try {
-        getERC20Balance(session, tokens, "https://api.baobab.klaytn.net:8651")
-          .then((balance) => {
-            console.log("erc20", balance);
-            setTokenBalance(balance);
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
         retriveTokens();
         getToken();
       } catch (error) {
@@ -152,9 +145,7 @@ const ProfilePage = ({ navigation }: any) => {
           </Text>
         </View>
         <View className="space-y-[8px] items-center">
-          <Text className="text-[24px] font-bold text-black">
-            {tokenBalance ? tokenBalance : "0.00"} TLT
-          </Text>
+          <Text className="text-[24px] font-bold text-black">{balances}</Text>
           <Text className="text-[14px] text-[#828282] font-normal">
             Talent Token
           </Text>
