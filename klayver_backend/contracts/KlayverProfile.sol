@@ -11,6 +11,8 @@ contract KlayverProfile{
         string bio;
         string profession;
         string skills;
+        string reviews;
+        address owner;
     }
 
     Profile[] public profiles;
@@ -33,6 +35,7 @@ contract KlayverProfile{
     newProfile.bio = _bio;
     newProfile.profession = _profession;
     newProfile.skills = _skills;
+    newProfile.owner = msg.sender;
 
     profiles.push(newProfile);
     profileByAddress[msg.sender] = newProfile;

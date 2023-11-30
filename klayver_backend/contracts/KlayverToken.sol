@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.9;
 
 import "@klaytn/contracts/KIP/token/KIP7/KIP7.sol";
 import "@klaytn/contracts/KIP/token/KIP7/extensions/KIP7Burnable.sol";
@@ -30,8 +30,9 @@ contract KlayverToken is KIP7, KIP7Burnable, Pausable, Ownable {
         _unpause();
     }
 
-    function mint(address to, uint256 amount) public onlyOwner {
-        _mint(to, amount);
+    function mint(uint256 amount) external returns (uint256) {
+        _mint(msg.sender, amount * 10 ** decimals());
+        return balanceOf(msg.sender);
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 amount)

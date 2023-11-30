@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Pressable,
   ScrollView,
@@ -9,15 +9,18 @@ import {
 import InputField from "../components/MultipleInput";
 import { FieldTexts, FormInputFields } from "../utils/data";
 import { useKlayProfile } from "../utils/KlayverProfile";
+import { useAuth } from "../context/AuthContext";
 
 const Form = () => {
+  const { session } = useAuth();
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [profession, setProfession] = useState("");
   const [rate, setRate] = useState("");
   const [skills, setSkills] = useState<any>("");
 
-  const { createProfile } = useKlayProfile();
+  const { createProfile, retriveData, createAToken, isLoading, retriveTokens } =
+    useKlayProfile();
 
   const handleSubmit = async () => {
     createProfile(username, rate, bio, profession, skills);
@@ -71,7 +74,7 @@ const Form = () => {
           onPress={handleSubmit}
         >
           <Text className="text-[#fff] p-3 text-center font-semibold text-[20px]">
-            Submit
+            {isLoading ? isLoading : "Submit"}
           </Text>
         </TouchableHighlight>
       </View>

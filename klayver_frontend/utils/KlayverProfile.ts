@@ -3,10 +3,12 @@ import {
   klayverProfile,
   klayverProfileABI,
   connectWithContract,
+  token,
+  tokenAbi,
+  content,
+  contentABI,
 } from "../constants/contractVariable";
 import { useAuth } from "../context/AuthContext";
-
-
 
 interface klayverProfile {
   _name: string;
@@ -20,7 +22,49 @@ interface klayverProfile {
 
 export const useKlayProfile = () => {
   const [allProfile, setAllProfile] = useState([]);
+  const [isLoading, setIsLoading] = useState("");
+  const [tokens, setTokens] = useState("");
+
   const { session } = useAuth();
+
+  const createAToken = async () => {
+    try {
+      const contract = await connectWithContract(token, tokenAbi);
+      const tx = await contract?.createToken();
+      const receipt = tx.wait();
+      console.log(receipt.hash);
+      return receipt.hash;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const retriveTokens = async () => {
+    try {
+      const contract = await connectWithContract(token, tokenAbi);
+      const tx = await contract?.retrieveAllToken();
+      console.log(tx);
+      return tx;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getToken = async () => {
+    try {
+      const allTokens = await retriveTokens();
+      const filteredTokens = allTokens.filter(
+        (token: any) => token.owner === session
+      );
+      const tokenAddresses = filteredTokens.map(
+        (token: any) => token.tokenAddress
+      );
+      console.log("tokens", tokenAddresses[0]);
+      setTokens(tokenAddresses[0]);
+      return tokenAddresses[0];
+    } catch (error) {}
+  };
+
   const createProfile = async (
     _name: string,
     monthlyCharge: string,
@@ -33,6 +77,7 @@ export const useKlayProfile = () => {
         klayverProfile,
         klayverProfileABI
       );
+      setIsLoading("Creating profile...");
       const tx = await contract?.createAProfile(
         _name,
         monthlyCharge,
@@ -41,9 +86,19 @@ export const useKlayProfile = () => {
         skills
       );
       const receipt = tx.wait();
-      console.log(receipt.transactionhash);
+      console.log(receipt.hash);
+      setIsLoading("Profile created");
+      if (receipt) {
+        setIsLoading("Talent tokens is being created...");
+        const txReceipt = await createAToken();
+        console.log(txReceipt);
+        setIsLoading("Successfull created token...");
+      } else {
+        setIsLoading("");
+      }
     } catch (error) {
       console.log(error);
+      setIsLoading("");
     }
   };
 
@@ -54,7 +109,7 @@ export const useKlayProfile = () => {
         klayverProfileABI
       );
       const tx = await contract?.retrieveAllProfile();
-      console.log(tx);
+      // console.log(tx);
       setAllProfile(tx);
       return tx;
     } catch (error) {
@@ -72,59 +127,57 @@ export const useKlayProfile = () => {
     }
   };
 
+  const createAKlay = async (_newImage: any, _newPost: any) => {
+    try {
+      const contract = await connectWithContract(content, contentABI);
+      const tx = await contract?.createAKlay(_newImage, _newPost);
+      const receipt = tx.wait();
+      console.log(receipt.hash);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const retrieveKlays = async () => {
+    try {
+      const contract = await connectWithContract(
+        klayverProfile,
+        klayverProfileABI
+      );
+      const tx = await contract?.retrieveKlays();
+      const receipt = tx.wait();
+      console.log(receipt.transactionhash);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const mintPost = async (id: number) => {
+    try {
+      const contract = await connectWithContract(
+        klayverProfile,
+        klayverProfileABI
+      );
+      const tx = await contract?.mintPost(id);
+      const receipt = tx.wait();
+      console.log(receipt.transactionhash);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     createProfile,
     retriveData,
     filterForUser,
-    allProfile
+    allProfile,
+    createAToken,
+    isLoading,
+    retriveTokens,
+    getToken,
+    tokens,
+    createAKlay,
+    retrieveKlays,
+    mintPost
   };
 };
-
-
- export const createAKlay = async(_newImage : any, _newPost: any) => {
-     try {
-    const contract = await connectWithContract(
-      klayverProfile,
-      klayverProfileABI
-    );
-    const tx = await contract?.createAKlay(
-      _newImage,
-      _newPost
-    );
-    const receipt = tx.wait();
-    console.log(receipt.transactionhash);
-  } catch (error) {
-    console.log(error);
-  }
- }
-    
-export const retrieveKlays = async() => {
-         try {
-    const contract = await connectWithContract(
-      klayverProfile,
-      klayverProfileABI
-    );
-    const tx = await contract?.retrieveKlays();
-    const receipt = tx.wait();
-    console.log(receipt.transactionhash);
-  } catch (error) {
-    console.log(error);
-  }
- }
-
-export const mintPost = async(id: number) => {
-          try {
-    const contract = await connectWithContract(
-      klayverProfile,
-      klayverProfileABI
-    );
-    const tx = await contract?.mintPost(id);
-    const receipt = tx.wait();
-    console.log(receipt.transactionhash);
-  } catch (error) {
-    console.log(error);
-  }
-   }
-
-  
-

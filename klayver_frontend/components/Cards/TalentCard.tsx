@@ -1,24 +1,37 @@
 import { View, Text, Image, ImageBackground } from "react-native";
 import React from "react";
-import { LinearGradient } from "expo-linear-gradient";
+import UserAvatar from "react-native-user-avatar";
 
-const TalentCard = () => {
+type Props = {
+  name?: string;
+  amount?: any;
+};
+
+const TalentCard = ({ name, amount }: Props) => {
   return (
     <ImageBackground
       source={{
         uri: "https://cdn.builder.io/api/v1/image/assets/TEMP/beec9120-f379-4d52-a5ff-a9b115c45ea5?apiKey=883c965f5dae4e12bcf3061b7809d46b&width=100 100w",
       }}
-      className="aspect-[2.81] object-cover mt-5  w-[342px] rounded-[20px] overflow-hidden pt-[21px] px-[22px] ml-[20px] mr-[21px]"
+      className="aspect-[2.81] object-cover mt-5  w-[342px] rounded-[20px] overflow-hidden pt-[21px] px-[22px] "
     >
       <View className="flex-row items-start space-x-4">
-        <View className="w-[64px] h-[64px] bg-white " />
+        {name ? (
+          <UserAvatar
+            name={name}
+            style={{ width: 64, height: 64, paddingTop: 4 }}
+          />
+        ) : (
+          <View className="w-[64px] h-[64px] bg-white " />
+        )}
+
         <View className="space-y-[19px]">
           <View className="flex-row items-start w-full space-x-4">
             <Text className="text-white text-base font-bold leading-5 my-auto">
               Verified Talent
             </Text>
             <Text className="text-white text-sm leading-5 whitespace-nowrap justify-center items-stretch bg-neutral-200/20 bg-opacity-20 px-2 py-[0.5] rounded-3xl">
-              $10/hr
+              ${amount ? Number(amount) : "0.00"}/hr
             </Text>
           </View>
           {/**
@@ -45,7 +58,7 @@ const TalentCard = () => {
                 1 AXL
               </Text>
               <Text className="text-zinc-100 text-xs leading-5 whitespace-nowrap mt-1">
-                = $10
+                = ${Number(amount)}
               </Text>
             </View>
           </View>

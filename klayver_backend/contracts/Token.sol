@@ -17,26 +17,31 @@ contract Token {
 
     mapping(address => UserToken) public addressToToken;
 
-    function createToken(
-    ) external returns (address) {
+    function createToken() external returns (address) {
         // Deploy token contract and mint some initial tokens
         KlayverToken newToken = new KlayverToken("Talent Token", "TLT");
-        uint256 balance = newToken.retrieveTokenBalance(msg.sender);
-        newToken.transferFrom(msg.sender, address(this), balance);
 
         UserToken storage newUserToken = addressToToken[msg.sender];
         
         newUserToken.owner = msg.sender;
         newUserToken.tokenAddress = address(newToken);
-        newUserToken.userBalance = balance;
+        newUserToken.userBalance = newToken.mint(10000);
 
         allTokens.push(newUserToken);
 
         return address(newToken);
     }
 
-    function retrieveAllToken()external view returns(UserToken[]  memory) {
+    function retrieveAllToken() external view returns (UserToken[] memory) {
         return allTokens;
+    }
+
+    function retrieveUserBalance(address _owner) external view returns (uint256) {
+        return addressToToken[_owner].userBalance;
+    }
+
+    function retrieveUserTokenAddress(address _owner) external view returns (address) {
+        return addressToToken[_owner].tokenAddress;
     }
 
     function purchaseAToken(address _tokenAddress, address _profileAddress) payable public {
