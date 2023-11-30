@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Image } from "react-native";
+import { View, Text, Pressable, Image, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
@@ -13,14 +13,13 @@ import { useAuth } from "../../../context/AuthContext";
 const Home = () => {
   const { retrieveKlays } = useKlayProfile();
   const { session } = useAuth();
-  const [allPost, setAllPost] = useState([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-  ]);
+  const [allPost, setAllPost] = useState([]);
 
   useEffect(() => {
     const getPost = async () => {
       const post = await retrieveKlays();
-      console.log(post)
+      console.log(post);
+      setAllPost(post);
     };
     getPost();
   }, [session]);
@@ -56,9 +55,21 @@ const Home = () => {
           paddingBottom: 45,
         }}
       >
-        {allPost.map((item, i) => (
-          <PostCard item={item} key={i} />
-        ))}
+        {allPost && (
+          <View>
+            {allPost?.map((item, i) => <PostCard item={item} key={i} />)}
+          </View>
+        )}
+
+        {allPost.length === 0 && (
+          <ActivityIndicator size={"large"} color="orange" />
+        )}
+
+        {!allPost && (
+          <View>
+            <Text>No Post</Text>
+          </View>
+        )}
       </ScrollView>
       <Pressable
         onPress={() => router.push("/createPost")}

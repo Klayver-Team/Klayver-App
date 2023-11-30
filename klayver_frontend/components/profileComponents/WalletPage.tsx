@@ -22,7 +22,7 @@ const ProfilePage = ({ navigation }: any) => {
     setBalance,
     setTokenBalance,
   } = useAuth();
-  const { retriveTokens, getToken, tokens } = useKlayProfile();
+  const { retriveTokens, getToken, tokens, retriveBalance } = useKlayProfile();
 
   const erc20Abi = [
     // Some details about the token
@@ -85,6 +85,7 @@ const ProfilePage = ({ navigation }: any) => {
           .catch((error) => {
             console.error("Error:", error);
           });
+          retriveBalance()
       } catch (error) {
         console.log(error);
       }

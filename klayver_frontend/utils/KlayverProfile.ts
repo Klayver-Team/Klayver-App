@@ -50,6 +50,17 @@ export const useKlayProfile = () => {
     }
   };
 
+  const retriveBalance = async () => {
+    try {
+      const contract = await connectWithContract(token, tokenAbi);
+      const tx = await contract?.retrieveUserBalance(session);
+      console.log("balance", tx);
+      return tx;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getToken = async () => {
     try {
       const allTokens = await retriveTokens();
@@ -174,5 +185,6 @@ export const useKlayProfile = () => {
     createAKlay,
     retrieveKlays,
     mintPost,
+    retriveBalance,
   };
 };
