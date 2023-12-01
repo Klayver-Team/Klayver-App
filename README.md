@@ -19,7 +19,7 @@ In essence, Klayver's project fits well into the track of real-world assets by i
 * Existing systems are prone to inefficiencies, lack transparency, and face data vulnerabilities.
 
 In this context, there is a critical need for a decentralized and secure solution to tap into the full potential of social talent.
-The absence of such a solution hampers industry adaptation, hindering progress in talent acquisition and utilization.
+The absence of such a solution hampers industry adaptation, hindering progress in talent acquisition and utilization. hello tomiwa and femi
 
 # 🚀 The Solution.
 Klayver seeks to revolutionize recruitment by:
