@@ -84,7 +84,7 @@ export const useKlayProfile = () => {
 
   const createProfile = async (
     _name: string,
-    monthlyCharge: string,
+    monthlyCharge: ethers.BigNumber,
     _bio: string,
     profession: string,
     skills: string

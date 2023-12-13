@@ -26,7 +26,7 @@ export {
   token,
   tokenAbi,
   content,
-  contentABI
+  contentABI,
 };
 
 export const connectWithContract = async (
@@ -41,7 +41,7 @@ export const connectWithContract = async (
     const privateKey =
       ethers.Wallet.fromMnemonic(mnemonic)._signingKey().privateKey;
     const provider = new ethers.providers.JsonRpcProvider(
-      "https://public-en-baobab.klaytn.net"
+      "https://replicator.pegasus.lightlink.io/rpc/v1"
     );
 
     const wallet = new ethers.Wallet(privateKey, provider);

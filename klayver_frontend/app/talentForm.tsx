@@ -10,6 +10,7 @@ import InputField from "../components/MultipleInput";
 import { FieldTexts, FormInputFields } from "../utils/data";
 import { useKlayProfile } from "../utils/KlayverProfile";
 import { useAuth } from "../context/AuthContext";
+import { ethers } from "ethers";
 
 const Form = () => {
   const { session } = useAuth();
@@ -19,11 +20,11 @@ const Form = () => {
   const [rate, setRate] = useState("");
   const [skills, setSkills] = useState<any>("");
 
-  const { createProfile, retriveData, createAToken, isLoading, retriveTokens } =
+  const { createProfile,  isLoading, } =
     useKlayProfile();
 
   const handleSubmit = async () => {
-    createProfile(username, rate, bio, profession, skills);
+    createProfile(username, ethers.utils.parseEther(rate), bio, profession, skills);
   };
 
   return (

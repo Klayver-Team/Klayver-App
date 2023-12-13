@@ -126,7 +126,7 @@ const WalletPage = () => {
   const item = userAcc[0]; // Assuming you are using only the first userAcc,
   return (
     <View>
-      {userAcc.map((item: any, index: any) => (
+      {/* {userAcc.map((item: any, index: any) => ( */}
         <View key={index} className="px-[20px] mt-[51px]">
           <View className="flex-row items-center justify-between min-w-full ">
             <View className="flex-row items-start space-x-[16px]">
@@ -215,7 +215,7 @@ const WalletPage = () => {
             </ScrollView>
           </View>
         </View>
-      ))}
+      {/* ))} */}
     </View>
   );
 };

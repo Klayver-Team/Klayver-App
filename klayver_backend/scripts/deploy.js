@@ -40,7 +40,7 @@ async function main() {
 
   console.log(`Klayver successfully deployed ${klayver.target}`);
   console.log(`KlayProfile successfully deployed ${klayverProfile.target}`);
-  console.log(`KlayverLoan successfully deployed ${klayverLoan.address}`);
+  console.log(`KlayverLoan successfully deployed ${klayverLoan.target}`);
   console.log(`Token successfully deployed ${token.target}`);
   console.log(`klayContent sucessfull deployed to ${klayContent.target}`);
   console.log("Deployment completed!");
