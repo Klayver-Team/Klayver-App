@@ -15,31 +15,37 @@ import Coinbase from "../../assets/icons/coinbase.svg";
 import RightIcon from "../../assets/icons/rightIcon.svg";
 import LeftIcon from "../../assets/icons/leftIcon.svg";
 import { useAuth } from "../../context/AuthContext";
+import { useWeb3Modal } from "@web3modal/ethers5-react-native";
+
 const Card = () => {
+  const { open } = useWeb3Modal();
   const myButtons = [
     {
       icon: <MetaMask />,
       id: 1,
       title: "MetaMask",
+      connect: () => open(),
     },
     {
       id: 2,
-      icon: <WalletConnect onPress={() => Alert.alert("hello")} />,
+      icon: <WalletConnect />,
       title: "WalletConnect",
+      connect: () => open(),
     },
     {
       id: 3,
       icon: <Coinbase />,
       title: "Coinbase Wallet",
+      connect: () => open(),
     },
   ];
   return (
-    <>
+    <View>
       {myButtons.map((item: any) => {
         return (
           <Pressable
             key={item.id}
-            onPress={() => console.log(item.title)}
+            onPress={item.connect}
             className="bg-[#f4f4f4] rounded-[20px] mt-4 p-5"
           >
             <View className="flex flex-row">
@@ -51,7 +57,7 @@ const Card = () => {
           </Pressable>
         );
       })}
-    </>
+    </View>
   );
 };
 const LoginForm = () => {
