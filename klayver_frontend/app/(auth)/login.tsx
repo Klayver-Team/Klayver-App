@@ -15,28 +15,27 @@ import Coinbase from "../../assets/icons/coinbase.svg";
 import RightIcon from "../../assets/icons/rightIcon.svg";
 import LeftIcon from "../../assets/icons/leftIcon.svg";
 import { useAuth } from "../../context/AuthContext";
-import { useWeb3Modal } from "@web3modal/ethers5-react-native";
+import SignInWithOkto from "../../components/SignInWithOkto";
 
 const Card = () => {
-  const { open } = useWeb3Modal();
   const myButtons = [
     {
       icon: <MetaMask />,
       id: 1,
       title: "MetaMask",
-      connect: () => open(),
+      connect: () => {},
     },
     {
       id: 2,
       icon: <WalletConnect />,
       title: "WalletConnect",
-      connect: () => open(),
+      connect: () => {},
     },
     {
       id: 3,
       icon: <Coinbase />,
       title: "Coinbase Wallet",
-      connect: () => open(),
+      connect: () => {},
     },
   ];
   return (
@@ -140,7 +139,7 @@ const LoginForm = () => {
                 }}
               />
             </View>
-
+            <SignInWithOkto />
             <TouchableHighlight
               className="bg-[#F88908] rounded-[30px] p-1 mt-[10px]"
               onPress={() => createAnEOA(email, password)}

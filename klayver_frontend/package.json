@@ -19,6 +19,7 @@
     "@react-native-async-storage/async-storage": "1.18.2",
     "@react-native-community/clipboard": "^1.5.1",
     "@react-native-community/netinfo": "9.3.10",
+    "@react-native-google-signin/google-signin": "^11.0.1",
     "@react-native-picker/picker": "2.4.10",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^6.3.20",
@@ -61,7 +62,8 @@
     "react-native-svg-uri": "^1.2.3",
     "react-native-text-avatar": "^1.0.7",
     "react-native-user-avatar": "^1.0.8",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "rn-okto-sdk": "^2.0.18"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
