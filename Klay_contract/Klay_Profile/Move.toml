@@ -1,0 +1,16 @@
+[package]
+name = "klay_contract"
+version = "1.0.0"
+authors = []
+
+[addresses]
+klaycontract_addr='1799323a9f5ce2de3ac0b0a9f1952f84a3ef3241bed8717326a327482b8fb071'
+
+[dev-addresses]
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "testnet"
+subdir = "aptos-move/framework/aptos-framework"
+
+[dev-dependencies]

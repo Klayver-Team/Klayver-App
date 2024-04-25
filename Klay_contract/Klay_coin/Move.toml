@@ -1,0 +1,16 @@
+[package]
+name = "klay_coin"
+version = "1.0.0"
+authors = []
+
+[addresses]
+klay_coin='7765ab79bb7e3cc1a0b50bcb3d44c997ead266de0c20bdff172f96d554f5934d'
+
+[dev-addresses]
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "mainnet"
+subdir = "aptos-move/framework/aptos-framework"
+
+[dev-dependencies]
