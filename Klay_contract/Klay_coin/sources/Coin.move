@@ -1,59 +1,67 @@
-module klay_coin::coin {
+module klay_coin::Coin {
     use std::signer;
-    use std::string::utf8;
 
-    use aptos_framework::coin::{Self, MintCapability, BurnCapability};
+    /// Address of the owner of this module
+    const MODULE_OWNER: address = @0x5564ec9a9f1a8fc1c485b370c956c1ac53f2ca408e0f5ef34aeb2c25ab4eda3a;
 
-    const ERR_NOT_ADMIN: u64 = 1;
+    /// Error codes
+    const ENOT_MODULE_OWNER: u64 = 0;
+    const EINSUFFICIENT_BALANCE: u64 = 1;
+    const EALREADY_HAS_BALANCE: u64 = 2;
 
-    const ERR_COIN_INITIALIZED: u64 = 2;
-
-    const ERR_COIN_NOT_INITIALIZED: u64 = 2;
-
-    /// COIN struct is a parameter to be used as a generic, coin itself is a resource of type `Coin<COIN>`
-    struct UserCoin {}
-
-    struct Capabilities has key { mint_cap: MintCapability<UserCoin>, burn_cap: BurnCapability<UserCoin> }
-
-    /// Initializes the COIN struct as a Coin in the Aptos network.
-    public entry fun initialize(coin_admin: &signer) {
-        assert!(signer::address_of(coin_admin) == @coin_address, ERR_NOT_ADMIN);
-        assert!(!coin::is_coin_initialized<UserCoin>(), ERR_COIN_INITIALIZED);
-
-        let (burn_cap, freeze_cap, mint_cap) =
-            coin::initialize<UserCoin>(
-                coin_admin,
-                utf8(b"UserCoin"),
-                utf8(b"USER_COIN"),
-                6,
-                true
-            );
-        coin::destroy_freeze_cap(freeze_cap);
-
-        let caps = Capabilities { mint_cap, burn_cap };
-        move_to(coin_admin, caps);
+    struct Coin has store {
+        value: u64
     }
 
-    public entry fun register(user: signer) {
-        coin::register<UserCoin>(&user);
+    /// Struct representing the balance of each address.
+    struct Balance has key {
+        coin: Coin
     }
 
-    /// Mints an `amount` of Coin<COIN> and deposits it to the address `to_addr`.
-    public entry fun mint(coin_admin: &signer, to_addr: address, amount: u64) acquires Capabilities {
-        assert!(signer::address_of(coin_admin) == @coin_address, ERR_NOT_ADMIN);
-        assert!(coin::is_coin_initialized<UserCoin>(), ERR_COIN_INITIALIZED);
-
-        let caps = borrow_global<Capabilities>(@coin_address);
-        let coins = coin::mint(amount, &caps.mint_cap);
-        coin::deposit(to_addr, coins);
+    /// Publish an empty balance resource under `account`'s address. This function must be called before
+    /// minting or transferring to the account.
+    public fun publish_balance(account: &signer) {
+        let empty_coin = Coin { value: 0 };
+        assert!(!exists<Balance>(signer::address_of(account)), EALREADY_HAS_BALANCE);
+        move_to(account, Balance { coin: empty_coin });
     }
 
-    /// Burns an `amount` of `Coin<COIN>` from user's balance.
-    public entry fun burn(user: &signer, amount: u64) acquires Capabilities {
-        assert!(coin::is_coin_initialized<UserCoin>(), ERR_COIN_INITIALIZED);
+    /// Mint `amount` tokens to `mint_addr`. Mint must be approved by the module owner.
+    public fun mint(module_owner: &signer, mint_addr: address, amount: u64) acquires Balance {
+        // Only the owner of the module can initialize this module
+        assert!(signer::address_of(module_owner) == MODULE_OWNER, ENOT_MODULE_OWNER);
 
-        let coin = coin::withdraw<UserCoin>(user, amount);
-        let caps = borrow_global<Capabilities>(@coin_address);
-        coin::burn(coin, &caps.burn_cap);
+        // Deposit `amount` of tokens to `mint_addr`'s balance
+        deposit(mint_addr, Coin { value: amount });
+        borrow_global<Balance>(mint_addr).coin.value;
+    }
+
+    /// Returns the balance of `owner`.
+    public fun balance_of(owner: address): u64 acquires Balance {
+        borrow_global<Balance>(owner).coin.value
+    }
+
+    /// Transfers `amount` of tokens from `from` to `to`.
+    public fun transfer(from: &signer, to: address, amount: u64) acquires Balance {
+        let check = withdraw(signer::address_of(from), amount);
+        deposit(to, check);
+    }
+
+    /// Withdraw `amount` number of tokens from the balance under `addr`.
+    fun withdraw(addr: address, amount: u64) : Coin acquires Balance {
+        let balance = balance_of(addr);
+        // balance must be greater than the withdraw amount
+        assert!(balance >= amount, EINSUFFICIENT_BALANCE);
+        let balance_ref = &mut borrow_global_mut<Balance>(addr).coin.value;
+        *balance_ref = balance - amount;
+        Coin { value: amount }
+    }
+
+    /// Deposit `amount` number of tokens to the balance under `addr`.
+    fun deposit(addr: address, check: Coin) acquires Balance {
+        let balance = balance_of(addr);
+        let balance_ref = &mut borrow_global_mut<Balance>(addr).coin.value;
+        let Coin { value } = check;
+        *balance_ref = balance + value;
     }
 }
