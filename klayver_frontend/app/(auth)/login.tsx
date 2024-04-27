@@ -15,7 +15,7 @@ import Coinbase from "../../assets/icons/coinbase.svg";
 import RightIcon from "../../assets/icons/rightIcon.svg";
 import LeftIcon from "../../assets/icons/leftIcon.svg";
 import { useAuth } from "../../context/AuthContext";
-import SignInWithOkto from "../../components/SignInWithOkto";
+import { router } from "expo-router";
 
 const Card = () => {
   const myButtons = [
@@ -139,10 +139,9 @@ const LoginForm = () => {
                 }}
               />
             </View>
-            <SignInWithOkto />
             <TouchableHighlight
               className="bg-[#F88908] rounded-[30px] p-1 mt-[10px]"
-              onPress={() => createAnEOA(email, password)}
+              onPress={() => router.push("/(tabs)/(home)")}
             >
               <Text className="text-[#fff] p-3 text-center font-semibold text-[20px]">
                 Continue with email

@@ -66,17 +66,17 @@ export function useAuth() {
 }
 
 function useProtectedRoute(session: Session) {
-  const segments = useSegments();
+  // const segments = useSegments();
 
-  useEffect(() => {
-    const inAuthGroup = segments[0] === "(auth)";
+  // useEffect(() => {
+  //   const inAuthGroup = segments[0] === "(auth)";
 
-    if (!session && !inAuthGroup) {
-      router.replace("/(auth)/login");
-    } else if (session && inAuthGroup) {
-      router.replace("/(tabs)/(home)");
-    }
-  }, [session, segments]);
+  //   if (!session && !inAuthGroup) {
+  //     router.replace("/(auth)/login");
+  //   } else if (session && inAuthGroup) {
+  //     router.replace("/(tabs)/(home)");
+  //   }
+  // }, [session, segments]);
 }
 
 type AuthProviderProps = {
@@ -149,8 +149,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     const retrieveAccount = async () => {
-      const account = await getAccount();
-      setSession(account);
+      // const account = await getAccount();
+      // setSession(account);
 
       // onAuthStateChanged(auth, (user) => {
       //   if (user) {

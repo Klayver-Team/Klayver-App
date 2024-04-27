@@ -1,4 +1,4 @@
-module klay_coin::Coin {
+module klay_coin::Klay_Token {
     use std::signer;
 
     /// Address of the owner of this module
