@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
     "format": "prettier --write \"app/**/*.{tsx,ts}\""
@@ -14,7 +14,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@aptos-labs/ts-sdk": "^1.13.1",
+    "@aptos-labs/ts-sdk": "1.13.3-zeta.0",
     "@aptos-labs/wallet-adapter-ant-design": "^2.2.0",
     "@aptos-labs/wallet-adapter-react": "^2.3.1",
     "@ethersproject/shims": "5.7.0",
@@ -68,7 +68,8 @@
     "react-native-text-avatar": "^1.0.7",
     "react-native-user-avatar": "^1.0.8",
     "react-native-web": "~0.19.6",
-    "rn-okto-sdk": "^2.0.18"
+    "rn-okto-sdk": "^2.0.18",
+    "react-native-webview": "13.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

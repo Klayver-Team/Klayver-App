@@ -14,6 +14,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { AuthProvider } from "../context/AuthContext";
+import { KeylessAccountProvider } from "../context/AptosContext";
 
 // 1. Get projectId at https://cloud.walletconnect.com
 const projectId = "39caa80ca89c5fce19ea158f652adb08";
@@ -103,17 +104,19 @@ function RootLayoutNav() {
 
   return (
     <AuthProvider>
-      <Stack
-        screenOptions={{
-          contentStyle: {
-            backgroundColor: "#12141B",
-          },
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      </Stack>
+      <KeylessAccountProvider>
+        <Stack
+          screenOptions={{
+            contentStyle: {
+              backgroundColor: "#12141B",
+            },
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        </Stack>
+      </KeylessAccountProvider>
       {/* <Web3Modal /> */}
     </AuthProvider>
   );

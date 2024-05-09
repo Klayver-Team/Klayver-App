@@ -23,7 +23,7 @@ The absence of such a solution hampers industry adaptation, hindering progress i
 
 # 🚀 The Solution.
 Klayver seeks to revolutionize recruitment by:
-* Leveraging blockchain on the Klaytn network to address challenges in identifying and harnessing social talent
+* Leveraging blockchain on the Aptos blockchain to address challenges in identifying and harnessing social talent
 * Tokenizing talent and seamlessly integrating the recruitment process into the decentralized realm of blockchain technology
 
 # 🤖 Tools & Technologies.
@@ -46,4 +46,4 @@ Klayver seeks to revolutionize recruitment by:
 * [Figma](https://www.figma.com/file/nH04ds04lSzGaOR2EDUq9x/Klayver?type=design&node-id=57-410&mode=design&t=G1kNYvsfeNEnqq9p-0)
 
 # 🪪 License.
-Copyright Klayver 2023
+Copyright Klayver 2024

@@ -147,29 +147,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
-  useEffect(() => {
-    const retrieveAccount = async () => {
-      // const account = await getAccount();
-      // setSession(account);
-
-      // onAuthStateChanged(auth, (user) => {
-      //   if (user) {
-      //     // User is signed in, see docs for a list of available properties
-      //     // https://firebase.google.com/docs/reference/js/auth.user
-      //     const uid = user.uid;
-      //     // ...
-      //     router.push("/(tabs)/(home)");
-      //   } else {
-      //     // User is signed out
-      //     // ...
-      //     router.push("/(auth)/login");
-      //   }
-      // });
-    };
-
-    retrieveAccount();
-  }, [session]);
-
   const contextValue: AuthContextValue = {
     session,
     createAnEOA,

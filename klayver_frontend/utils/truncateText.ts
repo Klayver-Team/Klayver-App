@@ -12,5 +12,11 @@ export const truncateTextWithEllipsis = (input: string, maxLength: number): stri
   
     return truncatedText;
   }
+
+  // Define collapseAddress as a utility function
+const collapseAddress = (address: string) => {
+  // Example implementation: remove leading zeros and '0x' prefix
+  return address.replace(/^0x/, '').replace(/^0+/, '');
+};
   
   
