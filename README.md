@@ -27,11 +27,12 @@ Klayver seeks to revolutionize recruitment by:
 * Tokenizing talent and seamlessly integrating the recruitment process into the decentralized realm of blockchain technology
 
 # 🤖 Tools & Technologies.
-* Solidity - smart contract
+* Move - smart contract
 * Expo Go - mobile application framework.
 * TypeScript - for static typing.
 * Docker - for containerizing and easy development. (would ask the team if app would be containerized)
 * Tailwind - for styling user interface.
+* Aptos Typescript Sdk- for contract and accounts on the aptos chain.
   
 # 🪙 Local installation.
 
